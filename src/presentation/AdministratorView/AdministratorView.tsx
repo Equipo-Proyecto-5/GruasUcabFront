@@ -1,4 +1,4 @@
-import LogoutButton from "./components/LogoutButton";
+import LogoutButton from "../../components/LogoutButton";
 import SideBar from "./components/SideBar";
 import { Outlet } from "react-router-dom";
 
@@ -17,7 +17,6 @@ function AdministratorView(){
           <Outlet />
         </div>
       </main>
- 
     );
 };
 

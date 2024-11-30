@@ -1,19 +1,24 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AdministratorView from './pages/AdministratorView/AdministratorView';
-import Rates from './pages/AdministratorView/Rates';  // Página de Gestión de Tarifas
-import Home from "./pages/Home/Home";
-import Vehicles from "./pages/AdministratorView/Vehicles";
-import Orders from "./pages/AdministratorView/pages/Orders/Orders";
-import FormOrders from "./pages/AdministratorView/pages/Orders/FormOrders";
-import Providerss from "./pages/AdministratorView/pages/Providerss/Providerss";
-import FormProviderss from "./pages/AdministratorView/pages/Providerss/FormProviderss";
-import Operators from "./pages/AdministratorView/pages/Operators/Operators";
-import FormOperators from "./pages/AdministratorView/pages/Operators/FormOperators";
+import AdministratorView from './presentation/AdministratorView/AdministratorView';
+import Rates from './presentation/AdministratorView/Rates';  // Página de Gestión de Tarifas
+import Home from "./presentation/Home/Home";
+import Vehicles from "./presentation/AdministratorView/Vehicles";
+import Orders from "./presentation/AdministratorView/pages/Orders/Orders";
+import FormOrders from "./presentation/AdministratorView/pages/Orders/FormOrders";
+import Providerss from "./presentation/AdministratorView/pages/Providerss/Providers";
+import FormProvider from "./presentation/AdministratorView/pages/Providerss/FormProvider";
+//import Operators from "./presentation/AdministratorView/pages/Operators/Operators";
+//import FormOperators from "./presentation/AdministratorView/pages/Operators/FormOperators";
+import { Toaster } from "react-hot-toast";
 // Otras páginas fuera del área del administrador
 
 function App() {
   return (
     <Router>
+      <Toaster
+        position="top-center" // Posición de las notificaciones
+        reverseOrder={false} // Orden de las notificaciones
+      />
       <Routes>
         {/* Ruta principal del administrador */}
         <Route path="/admin" element={<AdministratorView />}>
@@ -23,9 +28,12 @@ function App() {
           <Route path="orders" element={<Orders />} />
           <Route path="formorders" element={<FormOrders />} />
           <Route path="providerss" element={<Providerss />} />
-          <Route path="formproviderss" element={<FormProviderss />} />
-          <Route path="operators" element={<Operators />} />
+          <Route path="formproviderss" element={<FormProvider />} />
+          <Route path="formproviderss/editar/:id" element={<FormProvider />} />
+          //Descomentar cuando se conecte con la base de datos
+         {/* <Route path="operators" element={<Operators />} />
           <Route path="formoperators" element={<FormOperators />} />
+          <Route path="formoperators/editar/:id" element={<FormOperators />} />*/}
           {/* Agregar otras rutas según sea necesario */}
         </Route>
 

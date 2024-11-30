@@ -1,7 +1,7 @@
-import { Provider } from '../models/Provider';
+import { IProvider } from "@/models/Provider";
 
 
-export const adaptProviderData = (provider: Provider): Provider => {
+export const adaptProviderData = (provider: IProvider): IProvider => {
     return {
         id: provider.id,
         denominacionComercial: provider.denominacionComercial,
@@ -9,6 +9,6 @@ export const adaptProviderData = (provider: Provider): Provider => {
         direccionFisica: provider.direccionFisica,
         tipoDocumentoIdentidad: provider.tipoDocumentoIdentidad,
         numeroDocumentoIdentidad: provider.numeroDocumentoIdentidad,
-        estatus: provider.estatus
+        estatus: provider.estatus?.toLowerCase(),
     };
 };

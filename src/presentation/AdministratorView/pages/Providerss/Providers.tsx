@@ -1,9 +1,33 @@
+import { useState } from 'react';
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useProviders } from './Hooks/useProvider'; // Importa tu hook personalizado
+import { useProviders } from './Hooks/useProvider';
+import Modal from '@/components/Modal'; // Importa tu componente de Modal
 
-function Providerss() {
-  const { providers, loading, error } = useProviders(); // Usa el hook para obtener los proveedores, el estado de carga y el error
+function Providers() {
+  const { providers, loading, error, handleDeleteProvider } = useProviders(); // Usa el hook para obtener los proveedores
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProviderId, setSelectedProviderId] = useState<string | null>(null); // Estado para el proveedor seleccionado
+
+  // Función para abrir el modal y establecer el ID del proveedor a eliminar
+  const openModal = (id: string) => {
+    setSelectedProviderId(id);
+    setIsModalOpen(true);
+  };
+
+  // Función para cerrar el modal
+  const closeModal = () => {
+    setSelectedProviderId(null);
+    setIsModalOpen(false);
+  };
+
+  // Función para confirmar la eliminación y llamar a la función de eliminación
+  const confirmDelete = async () => {
+    if (selectedProviderId) {
+      await handleDeleteProvider(selectedProviderId);
+      closeModal();
+    }
+  };
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto mt-10">
@@ -34,21 +58,35 @@ function Providerss() {
               <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{provider.razonSocial}</th>
               <td className="px-6 py-4 text-center">{provider.denominacionComercial}</td>
               <td className="px-6 py-4 text-center">{provider.direccionFisica}</td>
-              <td className="px-6 py-4 text-center">{provider.numeroDocumentoIdentidad}</td>
+              <td className="px-6 py-4 text-center">{provider.tipoDocumentoIdentidad + ' -' + provider.numeroDocumentoIdentidad}</td>
               <td className="px-6 py-4 text-right">
                 <div className="flex items-center justify-end space-x-4">
-                  <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                  <a href="#" className="text-red-500">
+                  <Link to={`/admin/formproviderss/editar/${provider.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    Edit
+                  </Link>
+                  <button 
+                    onClick={() => openModal(String(provider.id))}
+                    className="text-red-500"
+                  >
                     <FaTrash className="text-s" />
-                  </a>
+                  </button>
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {/* Modal de confirmación de eliminación */}
+      <Modal
+        title="Confirmar Eliminación"
+        message="¿Estás seguro de que deseas eliminar este proveedor?"
+        isOpen={isModalOpen}
+        onConfirm={confirmDelete}
+        onCancel={closeModal}
+      />
     </div>
   );
 }
 
-export default Providerss;
+export default Providers;
