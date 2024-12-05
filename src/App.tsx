@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdministratorView from './presentation/AdministratorView/AdministratorView';
 import Rates from './presentation/AdministratorView/Rates';  // Página de Gestión de Tarifas
 import Home from "./presentation/Home/Home";
+import Login from "./presentation/Home/Login";
 import Vehicles from "./presentation/AdministratorView/Vehicles";
 import Orders from "./presentation/AdministratorView/pages/Orders/Orders";
 import FormOrders from "./presentation/AdministratorView/pages/Orders/FormOrders";
@@ -39,6 +40,7 @@ function App() {
 
         {/* Ruta para páginas fuera del administrador */}
         <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
       </Routes>
     </Router>
   );
