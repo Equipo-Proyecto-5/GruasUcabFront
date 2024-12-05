@@ -2,8 +2,10 @@ import { IProvider } from '@/models/Provider';
 import toast from 'react-hot-toast';
 //import Providerss from '@/presentation/AdministratorView/pages/Providerss/Providerss';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const fetchProvidersApi = async () => {
-    const response = await fetch('https://localhost:7255/Proveedores');// Colocar la URL de tu backend cuando se configure el cors
+    const response = await fetch(`${API_URL}/Proveedores`);// Colocar la URL de tu backend cuando se configure el cors
     if (!response.ok) {
         throw new Error('Failed to fetch providers');
     }
@@ -13,7 +15,7 @@ export const fetchProvidersApi = async () => {
 
 
 export const createProviderApi = async (provider: IProvider): Promise<IProvider> => {
-    const response = await fetch('https://localhost:7255/Proveedores', {
+    const response = await fetch(`${API_URL}/Proveedores`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -33,7 +35,7 @@ export const updateProviderApi = async (provider: IProvider): Promise<IProvider 
         throw new Error('Provider or provider.id is missing');
     }
 
-    const response = await fetch(`https://localhost:7255/Proveedores/${provider.id}`, {
+    const response = await fetch(`${API_URL}/Proveedores/${provider.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -55,7 +57,7 @@ export const updateProviderApi = async (provider: IProvider): Promise<IProvider 
 };
 
 export const deleteProviderApi = async (id: string): Promise<void> => {
-    const response = await fetch(`https://localhost:7255/Proveedores/${id}`, {
+    const response = await fetch(`${API_URL}/Proveedores/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
