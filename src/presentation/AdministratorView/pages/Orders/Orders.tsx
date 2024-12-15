@@ -7,7 +7,7 @@ function Orders() {
 <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto mt-10">
 <div className="flex justify-between items-center p-4">
     <div className="text-xl font-bold">Gestión de Ordenes</div>
-    <Link to="/admin/formorders" className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">
+    <Link to="/admin/formordersstep" className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">
     <button className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">
       <span>Crear Orden</span>
       <FaPlus className="text-xl" />
