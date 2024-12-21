@@ -96,20 +96,6 @@ function SideBar() {
             )}
           </li>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <Link to="/admin/vehicles" className="flex items-center w-full hover:bg-gray-700">
             <li className="flex items-center p-4 hover:bg-gray-700">
               <FaTruck className="mr-3" />

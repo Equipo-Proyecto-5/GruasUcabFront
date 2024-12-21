@@ -3,6 +3,8 @@ import AdministratorView from './presentation/AdministratorView/AdministratorVie
 import Rates from './presentation/AdministratorView/Rates';  // Página de Gestión de Tarifas
 import Home from "./presentation/Home/Home";
 import Vehicles from "./presentation/AdministratorView/Vehicles";
+import Cranes from "./presentation/AdministratorView/pages/Cranes/Cranes";
+import FormCrane from "./presentation/AdministratorView/pages/Cranes/FormCrane";
 import Orders from "./presentation/AdministratorView/pages/Orders/Orders";
 import FormOrders from "./presentation/AdministratorView/pages/Orders/FormOrders";
 import Providerss from "./presentation/AdministratorView/pages/Providerss/Providers";
@@ -25,6 +27,9 @@ function App() {
           {/* Subrutas que se renderizarán dentro de AdministratorView */}
           <Route path="rates" element={<Rates />} />
           <Route path="vehicles" element={<Vehicles />} />
+          <Route path="cranes/:providerId" element={<Cranes />} />
+          <Route path="formcranes/:providerId" element={<FormCrane />} />
+          <Route path="formcranes/editar/:id/:providerId" element={<FormCrane />} />
           <Route path="orders" element={<Orders />} />
           <Route path="formorders" element={<FormOrders />} />
           <Route path="providerss" element={<Providerss />} />
