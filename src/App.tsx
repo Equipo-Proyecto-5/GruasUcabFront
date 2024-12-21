@@ -8,6 +8,7 @@ import Cranes from "./presentation/AdministratorView/pages/Cranes/Cranes";
 import FormCrane from "./presentation/AdministratorView/pages/Cranes/FormCrane";
 import Orders from "./presentation/AdministratorView/pages/Orders/Orders";
 import FormOrders from "./presentation/AdministratorView/pages/Orders/FormOrders";
+import FormOrdersStep from "./presentation/AdministratorView/pages/Orders/FormOrdersStep";
 import Providerss from "./presentation/AdministratorView/pages/Providerss/Providers";
 import FormProvider from "./presentation/AdministratorView/pages/Providerss/FormProvider";
 //import Operators from "./presentation/AdministratorView/pages/Operators/Operators";
@@ -33,6 +34,7 @@ function App() {
           <Route path="formcranes/editar/:id/:providerId" element={<FormCrane />} />
           <Route path="orders" element={<Orders />} />
           <Route path="formorders" element={<FormOrders />} />
+          <Route path="formordersstep" element={<FormOrdersStep />} />
           <Route path="providerss" element={<Providerss />} />
           <Route path="formproviderss" element={<FormProvider />} />
           <Route path="formproviderss/editar/:id" element={<FormProvider />} />
