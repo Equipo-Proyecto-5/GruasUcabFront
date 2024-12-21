@@ -11,8 +11,8 @@ import FormOrders from "./presentation/AdministratorView/pages/Orders/FormOrders
 import FormOrdersStep from "./presentation/AdministratorView/pages/Orders/FormOrdersStep";
 import Providerss from "./presentation/AdministratorView/pages/Providerss/Providers";
 import FormProvider from "./presentation/AdministratorView/pages/Providerss/FormProvider";
-//import Operators from "./presentation/AdministratorView/pages/Operators/Operators";
-//import FormOperators from "./presentation/AdministratorView/pages/Operators/FormOperators";
+import Operators from "./presentation/AdministratorView/pages/Operators/Operators";
+import FormOperators from "./presentation/AdministratorView/pages/Operators/FormOperators";
 import { Toaster } from "react-hot-toast";
 // Otras páginas fuera del área del administrador
 
@@ -38,10 +38,9 @@ function App() {
           <Route path="providerss" element={<Providerss />} />
           <Route path="formproviderss" element={<FormProvider />} />
           <Route path="formproviderss/editar/:id" element={<FormProvider />} />
-          //Descomentar cuando se conecte con la base de datos
-         {/* <Route path="operators" element={<Operators />} />
+          <Route path="operators" element={<Operators />} />
           <Route path="formoperators" element={<FormOperators />} />
-          <Route path="formoperators/editar/:id" element={<FormOperators />} />*/}
+          <Route path="formoperators/editar/:id" element={<FormOperators />} />
           {/* Agregar otras rutas según sea necesario */}
         </Route>
 
