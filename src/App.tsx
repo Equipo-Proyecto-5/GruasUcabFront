@@ -17,6 +17,7 @@ import Drivers from "./presentation/AdministratorView/pages/Drivers/Drivers";
 //import FormDriver from "./presentation/AdministratorView/pages/Drivers/FormDriver";
 import ProviderssRepresentative from "./presentation/AdministratorView/pages/ProviderssRepresentative/ProviderssRepresentative";
 import FormProviderssRepresentative from "./presentation/AdministratorView/pages/ProviderssRepresentative/FormProviderssRepresentative";
+import RecoverPasswordPage  from "./presentation/Home/RecoverPasswordPage"
 
 import { Toaster } from "react-hot-toast";
 // Otras páginas fuera del área del administrador
@@ -62,6 +63,8 @@ function App() {
         {/* Ruta para páginas fuera del administrador */}
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
+        <Route path="/recover-password" element={<RecoverPasswordPage />} />
+
       </Routes>
     </Router>
   );
