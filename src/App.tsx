@@ -16,6 +16,8 @@ import FormOperators from "./presentation/AdministratorView/pages/Operators/Form
 import Drivers from "./presentation/AdministratorView/pages/Drivers/Drivers";
 //import FormDriver from "./presentation/AdministratorView/pages/Drivers/FormDriver";
 import ProviderssRepresentative from "./presentation/AdministratorView/pages/ProviderssRepresentative/ProviderssRepresentative";
+import FormProviderssRepresentative from "./presentation/AdministratorView/pages/ProviderssRepresentative/FormProviderssRepresentative";
+
 import { Toaster } from "react-hot-toast";
 // Otras páginas fuera del área del administrador
 
@@ -49,6 +51,8 @@ function App() {
            {/*<Route path="formdriver" element={<FormDriver />} />
           <Route path="formdriver/editar/:id" element={<FormDriver />} />*/}
           <Route path="providerssrepresentative" element={<ProviderssRepresentative />} />
+          <Route path="formproviderssrepresentative" element={<FormProviderssRepresentative />} />
+          <Route path="formproviderssrepresentative/editar/:id" element={<FormProviderssRepresentative />} />
            {/*<Route path="formdriver" element={<FormDriver />} />
           <Route path="formdriver/editar/:id" element={<FormDriver />} />*/}
 
