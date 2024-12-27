@@ -21,7 +21,8 @@ import ProviderssRepresentative from "./presentation/AdministratorView/pages/Pro
 import FormProviderssRepresentative from "./presentation/AdministratorView/pages/ProviderssRepresentative/FormProviderssRepresentative";
 import RecoverPasswordPage  from "./presentation/Home/RecoverPasswordPage"
 import  ChangePasswordPage from "./presentation/Home/UpdatePassword"
-
+import Departments from "./presentation/AdministratorView/pages/Departments/Departments";
+import FormDepartments from "./presentation/AdministratorView/pages/Departments/FormDepartments";
 
 import { Toaster } from "react-hot-toast";
 // Otras páginas fuera del área del administrador
@@ -60,6 +61,9 @@ function App() {
           <Route path="providerssrepresentative" element={<ProviderssRepresentative />} />
           <Route path="formproviderssrepresentative" element={<FormProviderssRepresentative />} />
           <Route path="formproviderssrepresentative/editar/:id" element={<FormProviderssRepresentative />} />
+          <Route path="departments" element={<Departments />} />
+          <Route path="formdepartments/editar/:id" element={<FormDepartments />} />
+          <Route path="formdepartments" element={<FormDepartments/>} />
            {/*<Route path="formdriver" element={<FormDriver />} />
           <Route path="formdriver/editar/:id" element={<FormDriver />} />*/}
 
