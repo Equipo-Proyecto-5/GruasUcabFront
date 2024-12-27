@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdministratorView from './presentation/AdministratorView/AdministratorView';
-import Rates from './presentation/AdministratorView/Rates';  // Página de Gestión de Tarifas
+import Rates from './presentation/AdministratorView/pages/Rates/Rates';  // Página de Gestión de Tarifas
+import FormRates from './presentation/AdministratorView/pages/Rates/FormRates';  // Página de Gestión de Tarifas
+
 import Home from "./presentation/Home/Home";
 import Login from "./presentation/Home/Login";
 import Vehicles from "./presentation/AdministratorView/Vehicles";
@@ -36,6 +38,8 @@ function App() {
         <Route path="/admin" element={<AdministratorView />}>
           {/* Subrutas que se renderizarán dentro de AdministratorView */}
           <Route path="rates" element={<Rates />} />
+          <Route path="formrates" element={<FormRates />} />
+          <Route path="formrates/editar/:id" element={<FormRates />} />
           <Route path="vehicles" element={<Vehicles />} />
           <Route path="cranes/:providerId" element={<Cranes />} />
           <Route path="formcranes/:providerId" element={<FormCrane />} />
