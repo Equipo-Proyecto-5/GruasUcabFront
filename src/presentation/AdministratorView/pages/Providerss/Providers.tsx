@@ -8,7 +8,7 @@ function Providers() {
   const { providers, loading, error, handleDeleteProvider } = useProviders(); // Usa el hook para obtener los proveedores
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProviderId, setSelectedProviderId] = useState<string | null>(null);
-  const [expandedRow, setExpandedRow] = useState<string | null>(null); // Estado para controlar la fila expandida
+  const [expandedRow, setExpandedRow] = useState<string | null>(null); 
 
   const openModal = (id: string) => {
     setSelectedProviderId(id);
