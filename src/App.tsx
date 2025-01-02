@@ -23,6 +23,8 @@ import RecoverPasswordPage  from "./presentation/Home/RecoverPasswordPage"
 import  ChangePasswordPage from "./presentation/Home/UpdatePassword"
 import Departments from "./presentation/AdministratorView/pages/Departments/Departments";
 import FormDepartments from "./presentation/AdministratorView/pages/Departments/FormDepartments";
+import Notifications from "./presentation/AdministratorView/pages/Notifications/Notifications";
+import FormNotifications from "./presentation/AdministratorView/pages/Notifications/FormNotifications"
 
 import { Toaster } from "react-hot-toast";
 // Otras páginas fuera del área del administrador
@@ -54,6 +56,11 @@ function App() {
           <Route path="operators" element={<Operators />} />
           <Route path="formoperators" element={<FormOperators />} />
           <Route path="formoperators/editar/:id" element={<FormOperators />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="formnotifications" element={<FormNotifications />} />
+          <Route path="formnotifications/editar/:id" element={<FormNotifications />} />
+
+
           {/* Agregar otras rutas según sea necesario */}
           <Route path="drivers" element={<Drivers />} />
            {/*<Route path="formdriver" element={<FormDriver />} />
@@ -64,6 +71,8 @@ function App() {
           <Route path="departments" element={<Departments />} />
           <Route path="formdepartments/editar/:id" element={<FormDepartments />} />
           <Route path="formdepartments" element={<FormDepartments/>} />
+         
+
            {/*<Route path="formdriver" element={<FormDriver />} />
           <Route path="formdriver/editar/:id" element={<FormDriver />} />*/}
 
