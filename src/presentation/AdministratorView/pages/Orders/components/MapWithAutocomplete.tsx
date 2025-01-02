@@ -6,99 +6,162 @@ declare global {
   }
 }
 
-const MapWithAutocomplete = () => {
-  const [address, setAddress] = useState('');
-  const inputRef = useRef<HTMLInputElement | null>(null);
+interface MapWithTwoLocationsProps {
+  onOriginChange: (address: string, coords: { lat: number | null; lng: number | null }) => void;
+  onDestinationChange: (address: string, coords: { lat: number | null; lng: number | null }) => void;
+}
+
+const MapWithTwoLocations: React.FC<MapWithTwoLocationsProps> = ({ onOriginChange, onDestinationChange }) => {
+  const [originAddress, setOriginAddress] = useState('');
+  const [destinationAddress, setDestinationAddress] = useState('');
+  const [originCoords, setOriginCoords] = useState<{ lat: number | null; lng: number | null }>({ lat: null, lng: null });
+  const [destinationCoords, setDestinationCoords] = useState<{ lat: number | null; lng: number | null }>({ lat: null, lng: null });
+
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
+  const originInputRef = useRef<HTMLInputElement | null>(null);
+  const destinationInputRef = useRef<HTMLInputElement | null>(null);
+  const mapInstanceRef = useRef<google.maps.Map | null>(null);
+  const markerRefs = useRef<{ origin: google.maps.Marker | null; destination: google.maps.Marker | null }>({
+    origin: null,
+    destination: null,
+  });
 
   useEffect(() => {
-    const loadMap = async () => {
-      if (!window.google) {
-        console.error('Google Maps API no está cargada.');
-        return;
-      }
-
-      // Crear el mapa
-      const map = new window.google.maps.Map(mapRef.current as HTMLDivElement, {
-        center: { lat: 0, lng: 0 },
-        zoom: 15,
+    if (!window.google) {
+      console.error('Google Maps API no está cargada.');
+      return;
+    }
+  
+    // Crear el mapa
+    mapInstanceRef.current = new window.google.maps.Map(mapRef.current as HTMLDivElement, {
+      center: { lat: 0, lng: 0 }, // Coordenadas iniciales
+      zoom: 15,
+    });
+  
+    // Crear marcadores
+    markerRefs.current.origin = new window.google.maps.Marker({
+      map: mapInstanceRef.current,
+      draggable: true,
+    });
+  
+    markerRefs.current.destination = new window.google.maps.Marker({
+      map: mapInstanceRef.current,
+      draggable: true,
+    });
+  
+    const setupAutocomplete = (
+      inputRef: React.RefObject<HTMLInputElement>,
+      type: 'origin' | 'destination'
+    ) => {
+      if (!inputRef.current) return;
+  
+      const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
+        types: ['address'],
       });
-
-      // Crear un marcador para mostrar la ubicación
-      const marker = new window.google.maps.Marker({
-        map,
-        draggable: true,
+  
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (place && place.geometry && place.geometry.location) {
+          const location = place.geometry.location;
+          const newCoords = { lat: location.lat(), lng: location.lng() };
+  
+          if (type === 'origin') {
+            setOriginAddress(place.formatted_address || '');
+            setOriginCoords(newCoords);
+  
+            // Llamar a la función para pasar las coordenadas al componente padre
+            onOriginChange(place.formatted_address || '', newCoords);
+  
+            // Mover marcador de origen
+            markerRefs.current.origin?.setPosition(location);
+  
+            // Centrar el mapa en el origen
+            mapInstanceRef.current?.setCenter(location);
+          } else if (type === 'destination') {
+            setDestinationAddress(place.formatted_address || '');
+            setDestinationCoords(newCoords);
+  
+            // Llamar a la función para pasar las coordenadas al componente padre
+            onDestinationChange(place.formatted_address || '', newCoords);
+  
+            // Mover marcador de destino
+            markerRefs.current.destination?.setPosition(location);
+  
+            // Centrar el mapa en el destino
+            mapInstanceRef.current?.setCenter(location);
+            mapInstanceRef.current?.setZoom(15);
+          }
+        } else {
+          console.error('No se pudo obtener la información del lugar seleccionado.');
+        }
       });
-
-     
-
-      // Configurar Autocomplete para la entrada de dirección
-      if (inputRef.current) {
-        autocompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, {
-          types: ['address'],
-        });
-
-        // Escuchar el evento `place_changed` del autocompletado
-        const listener = autocompleteRef.current.addListener('place_changed', () => {
-          const place = autocompleteRef.current?.getPlace();
-          if (place && place.geometry && place.geometry.location) {
-            const location = place.geometry.location;
-
-            // Centrar el mapa y mover el marcador
-            map.setCenter(location);
-            marker.setPosition(location);
-
-            // Actualizar latitud y longitud
-            setLatitude(location.lat());
-            setLongitude(location.lng());
-
-
-            // Actualizar la dirección en el estado
-            setAddress(place.formatted_address || '');
-          } else {
-            console.error('No se pudo obtener la información del lugar seleccionado.');
-          }
-        });
-
-        // Limpieza del listener al desmontar el componente
-        return () => {
-          if (listener) {
-            window.google.maps.event.removeListener(listener);
-          }
-        };
-      }
     };
+    // Configurar autocompletado para entradas de origen y destino
+    setupAutocomplete(originInputRef, 'origin');
+    setupAutocomplete(destinationInputRef, 'destination');
+  }, [onOriginChange, onDestinationChange]);
 
-    loadMap();
-  }, []);
+  
+
+// Use effect para actualizar el mapa cuando las coordenadas cambian
+useEffect(() => {
+  if (originCoords.lat !== null && originCoords.lng !== null) {
+    // Solo actualiza si las coordenadas son válidas
+    if (originCoords.lat !== null && originCoords.lng !== null) {
+      mapInstanceRef.current?.setCenter({ lat: originCoords.lat, lng: originCoords.lng });
+    }
+    mapInstanceRef.current?.setZoom(15);
+  }
+}, [originCoords]);
+
+useEffect(() => {
+  if (destinationCoords.lat !== null && destinationCoords.lng !== null) {
+    // Solo actualiza si las coordenadas son válidas
+    if (destinationCoords.lat !== null && destinationCoords.lng !== null) {
+      mapInstanceRef.current?.setCenter({ lat: destinationCoords.lat, lng: destinationCoords.lng });
+    }
+    mapInstanceRef.current?.setZoom(15);
+  }
+}, [destinationCoords]);
 
   return (
     <div className="w-full">
       <div className="mb-4">
+        <label className="block text-sm font-medium text-white">Dirección de Origen</label>
         <input
-          ref={inputRef}
-          id="address"
+          ref={originInputRef}
           type="text"
-          placeholder="Escribe la dirección del incidente" 
+          placeholder="Escribe la dirección de origen"
           className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          value={originAddress}
+          onChange={(e) => setOriginAddress(e.target.value)}
         />
+        <p><strong>Latitud Origen:</strong> {originCoords.lat}</p>
+        <p><strong>Longitud Origen:</strong> {originCoords.lng}</p>
       </div>
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-white">Dirección de Destino</label>
+        <input
+          ref={destinationInputRef}
+          type="text"
+          placeholder="Escribe la dirección de destino"
+          className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={destinationAddress}
+          onChange={(e) => setDestinationAddress(e.target.value)}
+        />
+        <p><strong>Latitud Destino:</strong> {destinationCoords.lat}</p>
+        <p><strong>Longitud Destino:</strong> {destinationCoords.lng}</p>
+      </div>
+
       <div
         ref={mapRef}
         className="w-full h-96 border rounded-lg"
-        style={{ height: '400px' }}
+        style={{ width: '100%', height: '400px' }}
       ></div>
-      <div className="mt-4">
-        <p><strong>Latitud:</strong> {latitude}</p>
-        <p><strong>Longitud:</strong> {longitude}</p>
-      </div>
     </div>
   );
 };
 
-export default MapWithAutocomplete;
+export default MapWithTwoLocations;
+
