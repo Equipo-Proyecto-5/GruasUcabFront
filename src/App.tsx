@@ -1,81 +1,45 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AdministratorView from './presentation/AdministratorView/AdministratorView';
-import Rates from './presentation/AdministratorView/pages/Rates/Rates';  // Página de Gestión de Tarifas
-import FormRates from './presentation/AdministratorView/pages/Rates/FormRates';  // Página de Gestión de Tarifas
-
+import { routesConfig } from "../src/routes/routesConfig";
 import Home from "./presentation/Home/Home";
 import Login from "./presentation/Home/Login";
-import Vehicles from "./presentation/AdministratorView/Vehicles";
-import Cranes from "./presentation/AdministratorView/pages/Cranes/Cranes";
-import FormCrane from "./presentation/AdministratorView/pages/Cranes/FormCrane";
-import Orders from "./presentation/AdministratorView/pages/Orders/Orders";
-import FormOrders from "./presentation/AdministratorView/pages/Orders/FormOrders";
-import FormOrdersStep from "./presentation/AdministratorView/pages/Orders/FormOrdersStep";
-import Providerss from "./presentation/AdministratorView/pages/Providerss/Providers";
-import FormProvider from "./presentation/AdministratorView/pages/Providerss/FormProvider";
-import Operators from "./presentation/AdministratorView/pages/Operators/Operators";
-import FormOperators from "./presentation/AdministratorView/pages/Operators/FormOperators";
-import Drivers from "./presentation/AdministratorView/pages/Drivers/Drivers";
-//import FormDriver from "./presentation/AdministratorView/pages/Drivers/FormDriver";
-import ProviderssRepresentative from "./presentation/AdministratorView/pages/ProviderssRepresentative/ProviderssRepresentative";
-import FormProviderssRepresentative from "./presentation/AdministratorView/pages/ProviderssRepresentative/FormProviderssRepresentative";
-import RecoverPasswordPage  from "./presentation/Home/RecoverPasswordPage"
-import  ChangePasswordPage from "./presentation/Home/UpdatePassword"
-import Departments from "./presentation/AdministratorView/pages/Departments/Departments";
-import FormDepartments from "./presentation/AdministratorView/pages/Departments/FormDepartments";
+import RecoverPasswordPage from "./presentation/Home/RecoverPasswordPage";
+import ChangePasswordPage from "./presentation/Home/UpdatePassword";
+import AdministratorView from "./presentation/AdministratorView/AdministratorView";
+import OperatorView from "./presentation/OperatorView/OperatorView";
+import ProviderView from "./presentation/ProviderView/ProviderView";
 
-import { Toaster } from "react-hot-toast";
-// Otras páginas fuera del área del administrador
+
 
 function App() {
+  
   return (
     <Router>
-      <Toaster
-        position="top-center" // Posición de las notificaciones
-        reverseOrder={false} // Orden de las notificaciones
-      />
       <Routes>
-        {/* Ruta principal del administrador */}
-        <Route path="/admin" element={<AdministratorView />}>
-          {/* Subrutas que se renderizarán dentro de AdministratorView */}
-          <Route path="rates" element={<Rates />} />
-          <Route path="formrates" element={<FormRates />} />
-          <Route path="formrates/editar/:id" element={<FormRates />} />
-          <Route path="vehicles" element={<Vehicles />} />
-          <Route path="cranes/:providerId" element={<Cranes />} />
-          <Route path="formcranes/:providerId" element={<FormCrane />} />
-          <Route path="formcranes/editar/:id/:providerId" element={<FormCrane />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="formorders" element={<FormOrders />} />
-          <Route path="formordersstep" element={<FormOrdersStep />} />
-          <Route path="providerss" element={<Providerss />} />
-          <Route path="formproviderss" element={<FormProvider />} />
-          <Route path="formproviderss/editar/:id" element={<FormProvider />} />
-          <Route path="operators" element={<Operators />} />
-          <Route path="formoperators" element={<FormOperators />} />
-          <Route path="formoperators/editar/:id" element={<FormOperators />} />
-          {/* Agregar otras rutas según sea necesario */}
-          <Route path="drivers" element={<Drivers />} />
-           {/*<Route path="formdriver" element={<FormDriver />} />
-          <Route path="formdriver/editar/:id" element={<FormDriver />} />*/}
-          <Route path="providerssrepresentative" element={<ProviderssRepresentative />} />
-          <Route path="formproviderssrepresentative" element={<FormProviderssRepresentative />} />
-          <Route path="formproviderssrepresentative/editar/:id" element={<FormProviderssRepresentative />} />
-          <Route path="departments" element={<Departments />} />
-          <Route path="formdepartments/editar/:id" element={<FormDepartments />} />
-          <Route path="formdepartments" element={<FormDepartments/>} />
-           {/*<Route path="formdriver" element={<FormDriver />} />
-          <Route path="formdriver/editar/:id" element={<FormDriver />} />*/}
-
-
-        </Route>
-
-        {/* Ruta para páginas fuera del administrador */}
+        {/* Rutas públicas */}
         <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/recover-password" element={<RecoverPasswordPage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
 
+        {/* Rutas del administrador */}
+        <Route path="/admin" element={<AdministratorView />}>
+          {routesConfig.admin.map(({ path, element }, index) => (
+            <Route key={index} path={path} element={element} />
+          ))}
+        </Route>
+
+         {/* Rutas del operador */}
+         <Route path="/operator" element={<OperatorView />}>
+          {routesConfig.operator.map(({ path, element }, index) => (
+            <Route key={index} path={path} element={element} />
+          ))}
+        </Route>
+
+        <Route path="/provider" element={<ProviderView />}>
+          {routesConfig.provider.map(({ path, element }, index) => (
+            <Route key={index} path={path} element={element} />
+          ))}
+        </Route>
 
       </Routes>
     </Router>

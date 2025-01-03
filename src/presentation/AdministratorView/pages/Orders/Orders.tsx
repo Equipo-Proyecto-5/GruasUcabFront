@@ -6,6 +6,7 @@ import { StatusOrder } from "./components/StatusOrder";
 import Modal from '@/components/Modal'; // Asegúrate de que el modal esté bien importado
 import { IOrder } from "@/models/Order";
 import DetailOrder from "./DetailOrder";
+import { getBasePath, getUserRole } from "../../../../routes/routesConfig";
 
 function Orders() {
   const { orders, loading, error, updateOrder, selectedOrder, setSelectedOrder, handleAssignOrder } = useOrders(); // Usamos la función updateOrder de tu hook
@@ -44,12 +45,16 @@ function Orders() {
     }
   };
 
+  // const role = getUserRole();
+  const role = getUserRole();
+  const basePath = getBasePath(role);
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto mt-10">
       <div className="flex justify-between items-center p-4">
         <div className="text-xl font-bold">Gestión de Órdenes</div>
         <Link
-          to="/admin/formordersstep"
+           to={`${basePath}/formordersstep`}
           className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200"
         >
           <button className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">

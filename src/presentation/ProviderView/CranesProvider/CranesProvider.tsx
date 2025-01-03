@@ -1,10 +1,9 @@
 import React, {  useState } from 'react';
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { useCranes } from './Hooks/useCranes';
+import { useCranes } from '../../AdministratorView/pages/Cranes/Hooks/useCranes';
 import Modal from '@/components/Modal'; // Importa tu componente de Modal
 //import { ICranes } from "@/models/Cranes";
-import { getBasePath, getUserRole } from "../../../../routes/routesConfig";
 
 function Cranes() {
   const { providerId } = useParams<{ providerId: string }>();
@@ -32,15 +31,12 @@ function Cranes() {
     }
   };
 
-   const role = getUserRole();
-    const basePath = getBasePath(role);
-
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto mt-10">
       <div className="flex justify-between items-center p-4">
         <div className="text-xl font-bold">Gestión de Gruas</div>
         <Link
-          to={`${basePath}/formcranes/${providerId}`}
+          to={`/admin/formcranes/${providerId}`}  
           className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200"
         >
           <button className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">
