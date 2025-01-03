@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaTags, FaClipboardList, FaCog, FaUser, FaUserCircle, FaHandshake,FaBuilding } from 'react-icons/fa';
+import { FaTags, FaClipboardList, FaCog, FaUser, FaUserCircle, FaHandshake,FaBuilding,FaBell } from 'react-icons/fa';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi'; 
 import { Link} from "react-router-dom";
 import logo from '../../../assets/LogoUCAB-removebg-preview.png';
@@ -75,6 +75,12 @@ function SideBar() {
             <li className="flex items-center p-4 hover:bg-gray-700">
               <FaHandshake className="mr-3" />
               {isOpen && <span>Gestión de Proveedores</span>}
+            </li>
+          </Link>
+          <Link to="/admin/notifications" className="flex items-center w-full hover:bg-gray-700">
+            <li className="flex items-center p-4 hover:bg-gray-700">
+              <FaBell className="mr-3" />
+              {isOpen && <span>Gestión de Notificaciones</span>}
             </li>
           </Link>
 
