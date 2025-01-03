@@ -38,7 +38,7 @@ function Notifications() {
         <div className="text-xl font-bold">Gestión de Notificaciones</div>
         <Link to="/admin/formnotifications" className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">
           <button className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">
-            <span>Crear Departamento</span>
+            <span>Crear Notificacion</span>
             <FaPlus className="text-xl" />
           </button>
         </Link>

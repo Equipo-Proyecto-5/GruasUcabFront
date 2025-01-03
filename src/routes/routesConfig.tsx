@@ -15,6 +15,8 @@ import Departments from '../presentation/AdministratorView/pages/Departments/Dep
 import FormDepartments from '../presentation/AdministratorView/pages/Departments/FormDepartments';
 import Drivers from '../presentation/AdministratorView/pages/Drivers/Drivers';
 //import FormDriver from '../presentation/AdministratorView/pages/Drivers/FormDriver';
+import Notifications from '../presentation/AdministratorView/pages/Notifications/Notifications';
+import FormNotifications from '../presentation/AdministratorView/pages/Notifications/FormNotifications';
 
 
 
@@ -45,6 +47,8 @@ export const routesConfig = {
     { path: "drivers", element: <Drivers />},
    // { path: "formdriver", element: <FormDriver />},
    // { path: "formdriver/editar/:id", element: <FormDriver />}
+    { path: "notifications", element: <Notifications /> },
+    { path: "formnotifications", element: <FormNotifications /> },
     
     // Agrega todas las rutas del administrador
   ],
@@ -82,5 +86,5 @@ export const getBasePath = (role: any) => {
 
 export const getUserRole = () => {
   // Simula obtener el rol; cámbialo según tu lógica real.
-  return "provider"; // "admin", "operator", "provider", etc.
+  return "admin"; // "admin", "operator", "provider", etc.
 };
