@@ -43,6 +43,7 @@ export function StatusOrder({ currentStatus, orderId }: StatusOrderProps) {
         placeholder=""
         onPointerEnterCapture={() => {}}
         onPointerLeaveCapture={() => {}}
+        onPointerLeave={() => {}}
       >
         <div className="w-full px-20 pt-4 pb-8 relative">
           <Stepper activeStep={activeStep} placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>

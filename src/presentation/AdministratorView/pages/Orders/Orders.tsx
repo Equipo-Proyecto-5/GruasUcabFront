@@ -57,7 +57,7 @@ function Orders() {
         <div className="text-center py-4">No hay órdenes activas disponibles.</div>
       ) : (
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead className="text-xs text-bg-white uppercase bg-slate-900 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3 text-center">N # Orden</th>
               <th scope="col" className="px-6 py-3 text-center">Cobertura Póliza</th>
@@ -75,22 +75,22 @@ function Orders() {
             {orders.map((order) => (
               <tr
                 key={order.id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="bg-white border-b-4 border-black dark:border-b-4 dark:bg-gray-800 dark:border-gray-700"
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                  className="px-6 py-4 font-bold text-black whitespace-nowrap dark:text-white text-center"
                 >
                   <Link to={`${basePath}/actionorder/${order.id}`} className="text-blue-600 hover:underline">
                     {order.coberturaBasePoliza ? `${order.numeroFactura}` : "Sin Tipo"}
                   </Link>
                 </th>
-                <td className="px-6 py-4 text-center">{order.coberturaBasePoliza}</td>
-                <td className="px-6 py-4 text-center">{order.nombreAsegurado}</td>
-                <td className="px-6 py-4 text-center">{order.nombreDenunciante}</td>
-                <td className="px-6 py-4 text-center">{order.Administratorid || "Desconocido"}</td>
-                <td className="px-6 py-4 text-center">{new Date(order.fecha).toLocaleDateString()}</td>
-                <td className="px-6 py-4 text-center">{order.estatus}</td>
+                <td className="px-6 py-4 text-center text-black dark:text-white">{order.coberturaBasePoliza} $</td>
+                <td className="px-6 py-4 text-center text-black dark:text-white">{order.nombreAsegurado}</td>
+                <td className="px-6 py-4 text-center text-black dark:text-white">{order.nombreDenunciante}</td>
+                <td className="px-6 py-4 text-center text-black dark:text-white">{order.Administratorid || "Desconocido"}</td>
+                <td className="px-6 py-4 text-center text-black dark:text-white">{new Date(order.fecha).toLocaleDateString()}</td>
+                <td className="px-6 py-4 text-center text-black dark:text-white">{order.estatus}</td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex items-center justify-end space-x-4">
                     <button

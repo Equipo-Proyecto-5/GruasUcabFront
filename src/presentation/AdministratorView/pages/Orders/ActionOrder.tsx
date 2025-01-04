@@ -6,6 +6,7 @@ import { IOrder } from "@/models/Order";
 import DetailOrder from "./DetailOrder";
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
+import Costs from "../Costs/Costs";
 
 function ActionOrder() {
   const { id } = useParams<{ id: string }>();
@@ -43,8 +44,10 @@ function ActionOrder() {
          currentStatus={order.estatus || "Desconocido"} 
       />
 
+      {/* Agregar el componente Costs */}
+      <Costs orderId={String(order.id)} />
        
-       <div className="flex  mb-6 mr-10">
+       <div className="flex  mb-6 mr-10 mt-10">
                 <button 
                     onClick={toggleDetails} 
                     className="flex  px-10 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-500 focus:outline-none ml-9"
