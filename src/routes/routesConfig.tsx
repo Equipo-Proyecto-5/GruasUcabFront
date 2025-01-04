@@ -17,6 +17,7 @@ import Drivers from '../presentation/AdministratorView/pages/Drivers/Drivers';
 //import FormDriver from '../presentation/AdministratorView/pages/Drivers/FormDriver';
 import Notifications from '../presentation/AdministratorView/pages/Notifications/Notifications';
 import FormNotifications from '../presentation/AdministratorView/pages/Notifications/FormNotifications';
+import ActionOrder from '@/presentation/AdministratorView/pages/Orders/ActionOrder';
 
 
 
@@ -49,6 +50,7 @@ export const routesConfig = {
    // { path: "formdriver/editar/:id", element: <FormDriver />}
     { path: "notifications", element: <Notifications /> },
     { path: "formnotifications", element: <FormNotifications /> },
+    { path: "actionorder/:id", element: <ActionOrder /> },
     
     // Agrega todas las rutas del administrador
   ],

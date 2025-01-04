@@ -7,6 +7,9 @@ import ChangePasswordPage from "./presentation/Home/UpdatePassword";
 import AdministratorView from "./presentation/AdministratorView/AdministratorView";
 import OperatorView from "./presentation/OperatorView/OperatorView";
 import ProviderView from "./presentation/ProviderView/ProviderView";
+// Importa ToastContainer y toast desde react-toastify
+import { Toaster } from 'react-hot-toast';
+
 
 
 
@@ -14,6 +17,13 @@ function App() {
   
   return (
     <Router>
+
+       {/* Agrega el ToastContainer para que los toasts se muestren */}
+       <Toaster
+        position="top-center" 
+        reverseOrder={false}
+      />
+
       <Routes>
         {/* Rutas públicas */}
         <Route path="/" element={<Home />} />

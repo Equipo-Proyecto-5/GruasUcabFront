@@ -74,7 +74,7 @@ const FormOrdersStep = () => {
         { name: "coverageKm", value: formData.distanciaCoberturaPoliza },
         { name: "vehicleType", value: formData.tipoVehiculo },
         { name: "policyType", value: formData.tipoPoliza },
-        { name: "placa", value: formData.placa },
+        { name: "placa", value: formData.placaVehiculo },
         { name: "infocard", value: formData.informacionVehiculo  },
       ];
 

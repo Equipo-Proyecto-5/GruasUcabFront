@@ -8,6 +8,7 @@ import { IOrderStatusUpdate } from "@/models/OrderStatusUpdate";
 
 const initialFormData: IOrder = {
     id: "",
+    numeroFactura: "",
     fecha: new Date(),
     polizaFechaInicio: "",
     polizaFechaFin: "",

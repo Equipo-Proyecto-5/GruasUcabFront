@@ -5,6 +5,7 @@ import { IOrder } from "@/models/Order";
 export const adaptOrderData = (order: IOrder): IOrder => {
     return {
         id: order.id,
+        numeroFactura: order.numeroFactura,
         fecha: order.fecha,
         polizaFechaInicio: order.polizaFechaInicio,
         polizaFechaFin: order.polizaFechaFin,

@@ -1,140 +1,176 @@
+import React, { useState } from "react";
+import { FaPlus, FaTrash, FaEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { useOrders } from "./Hooks/useOrder"; // Asegúrate de que la ruta sea correcta
+import { StatusOrder } from "./components/StatusOrder";
+import Modal from '@/components/Modal'; // Asegúrate de que el modal esté bien importado
+import { IOrder } from "@/models/Order";
+import DetailOrder from "./DetailOrder";
+import { getBasePath, getUserRole } from "../../../../routes/routesConfig";
 
-function FormOrders () {
+function Orders() {
+  const { orders, loading, error, updateOrder, selectedOrder, setSelectedOrder, handleAssignOrder } = useOrders(); // Usamos la función updateOrder de tu hook
+  const [expandedRow, setExpandedRow] = useState<string | null>(null); // Estado para controlar la fila expandida
+  const [isModalOpen, setIsModalOpen] = useState(false); // Control del estado del modal
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null); // Control del id de la orden seleccionada
+
+  const toggleRowExpansion = (orderId: string) => {
+    // Si la fila ya está expandida, la colapsamos, de lo contrario la expandimos
+    if (expandedRow === orderId) {
+      setExpandedRow(null);
+    } else {
+      setExpandedRow(orderId);
+    }
+  };
+
+  const openModal = (orderId: string) => {
+    setSelectedOrderId(orderId); // Establece el id de la orden seleccionada
+    setIsModalOpen(true); // Abre el modal
+  };
+
+  const openModalView = (order: IOrder) => {
+    setSelectedOrder(order); // Establece el id de la orden seleccionada
+  };
+
+  const closeModal = () => {
+    setSelectedOrderId(null);
+    setIsModalOpen(false); // Cierra el modal
+  };
+
+  const confirmCancel = async () => {
+    if (selectedOrderId) {
+      // Llama a la función updateOrder con el estatus "cancelar"
+      await updateOrder({ id: selectedOrderId, estatus: "Cancelar" });
+      closeModal(); // Cierra el modal después de cancelar
+    }
+  };
+
+  // const role = getUserRole();
+  const role = getUserRole();
+  const basePath = getBasePath(role);
+
   return (
-   
-    
-      <section className="bg-cream-lighter p-4 shadow border-8 border-gray-700 mt-10">
-      <div className="md:flex">
-        <h2 className="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6">Crear Nueva Orden</h2>
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto mt-10">
+      <div className="flex justify-between items-center p-4">
+        <div className="text-xl font-bold">Gestión de Órdenes</div>
+        <Link
+           to={`${basePath}/formordersstep`}
+          className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200"
+        >
+          <button className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">
+            <span>Crear Orden</span>
+            <FaPlus className="text-xl" />
+          </button>
+        </Link>
       </div>
-      <form>
-        <div className="md:flex mb-6">
-          <div className="md:w-1/4">
-            <legend className="uppercase tracking-wide text-sm">Datos de la Poliza</legend>
-            <p className="text-xs font-light text-red">Es requerido el numero de Poliza</p>
-          </div>
-        <div className="md:flex-1 mt-2 mb:mt-0 md:px-3">
-        <div className="md:flex mb-4">
-            <div className="md:flex-1 md:pr-3">
-              <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Numero de Poliza</label>
-              <input className="w-full shadow-inner p-1 border-2 border-gray-150 mt-2" type="text" name="address_street" placeholder="P-25101415" />
-            </div>
-            <div className="md:flex-1 md:pl-3">
-              <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Tipo de Poliza</label>
-              <input className="w-full shadow-inner p-1 border-2 border-gray-150 mt-2 " type="text" name="address_number" placeholder="Premium" />
-              <span className="text-xs mb-4 font-thin"></span>
-            </div>
-          </div>
-          <div className="md:flex mb-4">
-            <div className="md:flex-1 md:pr-3">
-              <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Cobertura $</label>
-              <input className="w-full shadow-inner p-1 border-2 border-gray-150 mt-2" type="text" name="address_street" placeholder="300$" />
-            </div>
-            <div className="md:flex-1 md:pl-3">
-              <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Cobertura KM</label>
-              <input className="w-full shadow-inner p-1 border-2 border-gray-150 mt-2" type="text" name="address_number" placeholder="150 KM" />
-              <span className="text-xs mb-4 font-thin"></span>
-            </div>
-          </div>
-      
-          </div>
+
+      {loading ? (
+        <div className="text-center py-4">Cargando órdenes...</div>
+      ) : error ? (
+        <div className="text-center py-4 text-red-500">
+          Error al cargar las órdenes: {error}
         </div>
-        <div className="md:flex mb-8">
-          <div className="md:w-1/3">
-            <legend className="uppercase tracking-wide text-sm">Datos del Asegurado</legend>
-          </div>
-          <div className="md:flex-1 mt-2 mb:mt-0 md:px-3">
-            <div className="mb-4">
-              <label className="block uppercase tracking-wide text-xs font-bold">Nombre Completo</label>
-              <input className="w-full shadow-inner p-1 border-2 border-gray-150 mt-2" type="tel"  placeholder="Roseylin Yairet Medero Herrera"/>
-            </div>
-            <div className="md:flex mb-4">
-            <div className="md:flex-1 md:pr-3">
-              <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Cedula</label>
-              <input className="w-full shadow-inner p-4 border-2 border-gray-200" type="text"  placeholder="V-XXXXXXXX" />
-            </div>
-            <div className="md:flex-1 md:pl-3">
-              <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Telefono</label>
-              <input className="w-full shadow-inner p-4 border-2 border-gray-200" type="text" placeholder="424-XXXXXXX" />
-              <span className="text-xs mb-4 font-thin">We lied, this isn't required.</span>
-            </div>
-          </div>
-            <div className="mb-4">
-              <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Email</label>
-              <input className="w-full shadow-inner p-4 border-0" type="email" name="email" placeholder="contact@acme.co"/>
-            </div>
-          </div>
-        </div>
-        <div className="md:flex">
-          <div className="md:w-1/3">
-            <legend className="uppercase tracking-wide text-sm">Social</legend>
-          </div>
-          <div className="md:flex-1 mt-2 mb:mt-0 md:px-3">
-            <div className="md:flex mb-4">
-              <div className="md:flex-1 md:pr-3">
-                <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Facebook</label>
-                <div className="w-full flex">
-                  <span className="text-xs py-4 px-2 bg-grey-light text-grey-dark">facebook.com/</span>
-                  <input className="flex-1 shadow-inner p-4 border-0" type="text" name="facebook" placeholder="acmeco"/>
-                </div>
-              </div>
-              <div className="md:flex-1 md:pl-3 mt-2 md:mt-0">
-                <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Twitter</label>
-                <div className="w-full flex">
-                  <span className="text-xs py-4 px-2 bg-grey-light text-grey-dark">twitter.com/</span>
-                  <input className="flex-1 shadow-inner p-4 border-0" type="text" name="twitter" placeholder="acmeco"/>
-                </div>
-              </div>
-            </div>
-            <div className="md:flex mb-4">
-              <div className="md:flex-1 md:pr-3">
-                <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Instagram</label>
-                <div className="w-full flex">
-                  <span className="text-xs py-4 px-2 bg-grey-light text-grey-dark">instagram.com/</span>
-                  <input className="flex-1 shadow-inner p-4 border-0" type="text" name="instagram" placeholder="acmeco"/>
-                </div>
-              </div>
-              <div className="md:flex-1 md:pl-3 mt-2 md:mt-0">
-                <label className="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Yelp</label>
-                  <div className="w-full flex">
-                    <span className="text-xs py-4 px-2 bg-grey-light text-grey-dark">yelp.com/</span>
-                    <input className="flex-1 shadow-inner p-4 border-0" type="text" name="yelp" placeholder="acmeco"/>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="md:flex mb-6">
-            <div className="md:w-1/3">
-              <legend className="uppercase tracking-wide text-sm">Description</legend>
-            </div>
-            <div className="md:flex-1 mt-2 mb:mt-0 md:px-3">
-              <textarea className="w-full shadow-inner p-4 border-0" placeholder="We build fine acmes." rows={6}></textarea>
-            </div>
-          </div>
-          <div className="md:flex mb-6">
-            <div className="md:w-1/3">
-              <legend className="uppercase tracking-wide text-sm">Cover Image</legend>
-            </div>
-            <div className="md:flex-1 px-3 text-center">
-              <div className="button bg-gold hover:bg-gold-dark text-cream mx-auto cusor-pointer relative">
-                <input className="opacity-0 absolute pin-x pin-y" type="file" name="cover_image"/>
-                Add Cover Image
-              </div>
-            </div>
-          </div>
-          <div className="md:flex mb-6 border border-t-1 border-b-0 border-x-0 border-cream-dark"/>
-            <div className="md:flex-1 px-3 text-center md:text-right">
-              <input type="hidden" name="sponsor" value="0"/>
-              <input className="button text-cream-lighter bg-brick hover:bg-brick-dark" type="submit" value="Create Location"/>
-            </div>
-      </form>
-      </section>
-      
-   
-      
-  
-  )
+      ) : orders.length === 0 ? (
+        <div className="text-center py-4">No hay órdenes activas disponibles.</div>
+      ) : (
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-center">Cobertura Póliza</th>
+              <th scope="col" className="px-6 py-3 text-center">Nombre del Asegurado</th>
+              <th scope="col" className="px-6 py-3 text-center">Nombre del Denunciante</th>
+              <th scope="col" className="px-6 py-3 text-center">Emitida por</th>
+              <th scope="col" className="px-6 py-3 text-center">Fecha de Emisión</th>
+              <th scope="col" className="px-6 py-3 text-center">Estatus</th>
+              <th scope="col" className="px-6 py-3 text-primary">
+                <span className="sr-only text-primary">Acciones</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <React.Fragment key={order.id}>
+                {/* Fila principal */}
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer"
+                  onClick={() => toggleRowExpansion(String(order.id))} // Al hacer clic expandimos o contraemos la fila
+                >
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                  >
+                   {order.coberturaBasePoliza ? `${order.coberturaBasePoliza} $` : "Sin Tipo"}
+                  </th>
+                  <td className="px-6 py-4 text-center">{order.nombreAsegurado}</td>
+                  <td className="px-6 py-4 text-center">{order.nombreDenunciante}</td>
+                  <td className="px-6 py-4 text-center">{order.Administratorid || "Desconocido"}</td>
+                  <td className="px-6 py-4 text-center">{new Date(order.fecha).toLocaleDateString()}</td>
+                  <td className="px-6 py-4 text-center">{order.estatus}</td>
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex items-center justify-end space-x-4">
+                    <button
+                        onClick= { async() =>{ 
+                          await handleAssignOrder(String(order.id));
+                          //Luego ver si funciona con el reload
+                         // window.location.reload();
+                        }}
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center"
+                    >
+                      Asignar
+                  </button>
+                      <button
+                        onClick={() => openModal(String(order.id))}
+                        className="text-red-500"
+                      >
+                        <FaTrash className="text-s" />
+                      </button>
+
+                      <button
+                        onClick={() => openModalView(order)}
+                        className="text-blue-600"
+                      >
+                        <FaEye className="text-s" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                {/* Fila adicional cuando está expandida */}
+                {expandedRow === order.id && (
+                  <tr className="bg-gray-100">
+                    <td colSpan={7} className="text-left py-2 pl-6">
+                      {/* Aquí se muestra el componente StatusOrder */}
+                      <StatusOrder 
+                        orderId={String(order.id)}
+                        currentStatus={order.estatus || "Desconocido"}
+                      />
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {/* Modal de confirmación de cancelación */}
+      <Modal
+        title="Confirmar Cancelación"
+        message="¿Estás seguro de que deseas cancelar esta orden?"
+        isOpen={isModalOpen}
+        onConfirm={confirmCancel}
+        onCancel={closeModal}
+      />
+
+      { selectedOrder && (
+        <DetailOrder
+          order={selectedOrder}
+       //   onClose={() => setSelectedOrder(null)}
+        />
+      )}
+
+      <></>
+    </div>
+  );
 }
 
-export default FormOrders;
+export default Orders;

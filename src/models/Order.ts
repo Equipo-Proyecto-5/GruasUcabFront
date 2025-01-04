@@ -1,5 +1,6 @@
 export interface IOrder {
     id?: string | number;
+    numeroFactura: string;
     fecha: Date;
     polizaFechaInicio: string;
     polizaFechaFin: string;

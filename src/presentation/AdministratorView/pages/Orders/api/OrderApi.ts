@@ -43,7 +43,8 @@ export const createOrderApi = async (order: ICreateOrder): Promise<IOrder>=> {
     });
 
     if (!response.ok) {
-        toast.error('Error Orden ya Registrado');
+        const errorMessage = await response.text(); // Puedes obtener el mensaje de error desde el cuerpo de la respuesta
+        throw new Error(errorMessage || 'Error al crear la orden'); // Lanza un error que será capturado en la función que llama a esta
     }
     return response.json(); // Devuelve la respuesta sin adaptar
 };
