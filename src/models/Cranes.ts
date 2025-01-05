@@ -8,4 +8,5 @@ export interface ICranes {
     placa: string;
     color: string;
     estatus?: string;
+    denominacionComercial?: string;
 };

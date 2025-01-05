@@ -14,7 +14,7 @@ import FormProviderssRepresentative from '../presentation/AdministratorView/page
 import Departments from '../presentation/AdministratorView/pages/Departments/Departments';
 import FormDepartments from '../presentation/AdministratorView/pages/Departments/FormDepartments';
 import Drivers from '../presentation/AdministratorView/pages/Drivers/Drivers';
-//import FormDriver from '../presentation/AdministratorView/pages/Drivers/FormDriver';
+import FormDriver from '../presentation/AdministratorView/pages/Drivers/FormDriver';
 import Notifications from '../presentation/AdministratorView/pages/Notifications/Notifications';
 import FormNotifications from '../presentation/AdministratorView/pages/Notifications/FormNotifications';
 import ActionOrder from '@/presentation/AdministratorView/pages/Orders/ActionOrder';
@@ -46,8 +46,8 @@ export const routesConfig = {
     { path: "formdepartments/editar/:id", element: <FormDepartments />},
     { path: "formdepartments", element: <FormDepartments/>},
     { path: "drivers", element: <Drivers />},
-   // { path: "formdriver", element: <FormDriver />},
-   // { path: "formdriver/editar/:id", element: <FormDriver />}
+    { path: "formdriver", element: <FormDriver />},
+    { path: "formdriver/editar/:id", element: <FormDriver />},
     { path: "notifications", element: <Notifications /> },
     { path: "formnotifications", element: <FormNotifications /> },
     { path: "actionorder/:id", element: <ActionOrder /> },
