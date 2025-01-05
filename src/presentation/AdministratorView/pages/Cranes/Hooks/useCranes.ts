@@ -27,6 +27,7 @@ export const useCranes = (cranesId?: string) => {
         año: "",
         placa: "",
         color: "",
+        denominacionComercial: "",
     });
     const navigate = useNavigate();
 
@@ -40,6 +41,7 @@ export const useCranes = (cranesId?: string) => {
             año: "",
             placa: "",
             color: "",
+            denominacionComercial: "",
         });
     };
 

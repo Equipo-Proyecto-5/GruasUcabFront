@@ -12,5 +12,6 @@ export const adaptCranesData = (cranes: ICranes): ICranes => {
         placa: cranes.placa,
         color: cranes.color,
         estatus: cranes.estatus?.toLowerCase() || "inactivo",
+        denominacionComercial: cranes.denominacionComercial,
     };
 };
