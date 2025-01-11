@@ -3,14 +3,18 @@ import { FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useOperators } from './Hooks/useOperator';
 import Modal from '@/components/Modal';
+import { useAuth } from '../../../../AuthContext';
+
+
 
 //Hay que arreglar al traer los datos de Operador de cabina el icono de basura no se muestra se anade un FAtrash
 
 function Operators() {
+  const { user, logout } = useAuth();
+
   const { operators, loading, error, handleDeleteOperator } = useOperators(); // Usa el hook para obtener los proveedores
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOperatorId, setSelectedOperatorId] = useState<string | null>(null); // Estado para el proveedor seleccionado
-
   // Función para abrir el modal y establecer el ID del proveedor a eliminar
   const openModal = (id: string) => {
     setSelectedOperatorId(id);
@@ -35,7 +39,7 @@ function Operators() {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto mt-10">
       <div className="flex justify-between items-center p-4">
-        <div className="text-xl font-bold">Gestión de Operadores</div>
+        <div className="text-xl font-bold">Gestión de Operadores{user?.email}</div>
         <Link to="/admin/formoperators" className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">
           <button className="flex items-center space-x-2 text-primary font-bold mt-10 hover:scale-90 transition-transform duration-200">
             <span>Crear Operador</span>

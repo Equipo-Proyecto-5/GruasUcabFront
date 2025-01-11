@@ -3,10 +3,12 @@ import { FaTags, FaClipboardList, FaCog, FaUser, FaUserCircle, FaHandshake,FaBui
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi'; 
 import { Link} from "react-router-dom";
 import logo from '../../../assets/LogoUCAB-removebg-preview.png';
+import { useAuth } from '../../../AuthContext';
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { user} = useAuth();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -131,8 +133,7 @@ function SideBar() {
             </div>
             {isOpen && (
               <div className="text-left">
-                <p className="text-white font-semibold">John Doe</p>
-                <p className="text-gray-400 text-sm">johndoe@gmail.com</p>
+                <p className="text-gray-400 text-sm">{user?.email}</p>
               </div>
             )}
           </div>

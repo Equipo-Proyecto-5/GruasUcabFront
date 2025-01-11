@@ -1,6 +1,7 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../AuthContext';
 
 interface LoginFormInputs {
   username: string;
@@ -8,9 +9,9 @@ interface LoginFormInputs {
 }
 
 const LoginPage = () => {
-  const [user, setUser] = useState<{ username: string; role: string } | null>(null);
+  //const [user, setUser] = useState<{ username: string; role: string } | null>(null);
   const navigate = useNavigate();
-
+  const {login}= useAuth();
   const {
     register,
     handleSubmit,
@@ -34,16 +35,32 @@ const LoginPage = () => {
       if (!response.ok) {
         throw new Error("Error al iniciar sesión. Verifica tus credenciales.");
       }
-
       const responseData = await response.json();
+       //Obtener datos adicionales
+      const additionalResponse = await fetch(`https://localhost:7157/api/Usuario/${responseData.role}/${responseData.username}`, {
+        method: "GET",
+      });
 
-      // Guarda el username y role en el estado
-      setUser({ username: responseData.username, role: responseData.role });
-
+      if (!additionalResponse.ok) {
+        throw new Error("Error al obtener los detalles del usuario.");
+      }
+      const aditionalResponseData= await additionalResponse.json()
+     //Setear el contexto
+     const userAuth={
+      id:aditionalResponseData.id,
+      email:responseData.username,
+      role:responseData.role
+     }
+      login(userAuth);
       // Redirige al usuario según el rol
       if (responseData.role === "Administrador") {
         navigate("/admin");
-      } else {
+      } else if(responseData.role==="Operador"){
+        navigate("/operator");
+      }else if(responseData.role==="Representante"){
+        navigate("/provider")
+      }
+      else {
         navigate("/home");
       }
     } catch (error) {

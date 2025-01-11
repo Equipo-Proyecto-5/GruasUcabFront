@@ -8,6 +8,7 @@ interface ChangePasswordInputs {
 const ChangePasswordPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  
 
   // Obtener el username de los parámetros de estado
   const username = location.state?.username;
@@ -19,10 +20,11 @@ const ChangePasswordPage = () => {
   } = useForm<ChangePasswordInputs>();
 
   const onSubmit = async (data: ChangePasswordInputs) => {
-    console.log(encodeURIComponent(username));
+    //console.log(encodeURIComponent(username));
     console.log(data.Password)
     try {
       const response = await fetch(`https://localhost:7133/api/auth/${encodeURIComponent(username)}`, {
+       
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
