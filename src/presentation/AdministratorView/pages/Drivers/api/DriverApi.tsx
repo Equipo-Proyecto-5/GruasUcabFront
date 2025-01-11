@@ -15,17 +15,15 @@ export const fetchDriverApi = async () => {
 
 export const createDriverApi = async (driver: IDriver): Promise<IDriver> => {
    
-    const driverToSend = {
-        ...driver,
+   const driverToSend = {
+       ...driver,
         tipoUsuario: 'Conductor', // Tipo de usuario fijo
         segundoNombre: driver.segundoNombre || null,  
         segundoApellido: driver.segundoApellido || null,  
-       // idEmpresaProveedor: driver.idEmpresaProveedor || null, 
-       // idGruaAsociada: driver.idGruaAsociada || null,  
+        //idEmpresaProveedor:null no esta llenando este campo
     };
-
-    console.log(driverToSend);
-
+    console.log("Crear")
+    console.log(driverToSend)
 
     const response = await fetch(`${API_URL}/api/Usuario`, {
         method: 'POST',
@@ -36,6 +34,7 @@ export const createDriverApi = async (driver: IDriver): Promise<IDriver> => {
     });
 
     if (!response.ok) {
+        console.log(response)
         toast.error('Error Conductor ya Registrado');
     }
 
@@ -45,10 +44,14 @@ export const createDriverApi = async (driver: IDriver): Promise<IDriver> => {
 
 
 export const updateDriverApi = async (driver: IDriver): Promise<IDriver | null> => {
+    console.log(driver);
+   // driver.idEmpresaProveedor="e2c1af61-27a3-44ee-bd19-c5282d05eb7d";//se quita esto debe traero la peticion
+    driver.tipoUsuario="Conductor"
+    
     if (!driver || !driver.id) {
         throw new Error('Provider or provider.id is missing');
     }
-
+        console.log(driver);
     const response = await fetch(`${API_URL}/api/Usuario/${driver.id}`, {
         method: 'PUT',
         headers: {

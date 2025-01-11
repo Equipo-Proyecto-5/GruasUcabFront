@@ -4,6 +4,7 @@ import Modal from '@/components/Modal';
 import { useEffect, useState } from 'react';
 import { useCranes } from '../Cranes/Hooks/useCranes';
 import { ICranes } from '@/models/Cranes';
+import toast from 'react-hot-toast';
 
 
 function FormDriver() {
@@ -85,7 +86,17 @@ function FormDriver() {
           {isEditMode ? 'Editar Conductor' : 'Crear Conductor'}
         </h1>
 
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={(e)=>{
+          e.preventDefault();
+          if(selectedProvider){
+            formDataDriver.idEmpresaProveedor=selectedProvider;
+          }
+          else{
+            toast.error("Debe seleccionar un proveedor")
+            return;
+          }
+          handleSubmitDriver(e);
+        }}>
           <div className="mb-6">
             {/* Campos básicos */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -114,14 +125,20 @@ function FormDriver() {
               </div>
               <div>
                 <label htmlFor="tipoDocumentoIdentidad" className="block text-gray-700 dark:text-white mb-1">Tipo de Documento</label>
-                <input
-                  type="text"
-                  id="tipoDocumentoIdentidad"
-                  name="tipoDocumentoIdentidad"
-                  value={formDataDriver.tipoDocumentoIdentidad || ''}
-                  onChange={handleChangeDriver}
-                  className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                />
+                <select
+                        id="tipoDocumentoIdentidad"
+                        name="tipoDocumentoIdentidad"
+                        value={formDataDriver.tipoDocumentoIdentidad}
+                        onChange={handleChangeDriver}
+                        className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                        required
+                      >
+                          <option value="" disabled>
+                            Selecciona un tipo
+                          </option>
+                              <option value="E">E</option>
+                              <option value="V">V</option>
+                              </select> 
               </div>
 
               <div>
@@ -151,11 +168,13 @@ function FormDriver() {
               <div>
                 <label htmlFor="numeroTelefono" className="block text-gray-700 dark:text-white mb-1">Teléfono</label>
                 <input
-                  type="tel"
+                  type="text"
                   id="numeroTelefono"
                   name="numeroTelefono"
                   value={formDataDriver.numeroTelefono}
                   onChange={handleChangeDriver}
+                  pattern="[0-9]{4}-[0-9]{7}"
+                  placeholder="XXXX-XXXXXXX"
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                   required
                 />
@@ -169,7 +188,7 @@ function FormDriver() {
               <div>
                 <label htmlFor="direccion" className="block text-gray-700 dark:text-white mb-1">Direccion</label>
                 <input
-                  type="tel"
+                  type="text"
                   id="direccion"
                   name="direccion"
                   value={formDataDriver.direccion}
@@ -182,12 +201,14 @@ function FormDriver() {
               <div>
                 <label htmlFor="correo" className="block text-gray-700 dark:text-white mb-1">Correo Electronico</label>
                 <input
-                  type="tel"
+                  type="email"
                   id="correo"
                   name="correo"
                   value={formDataDriver.correo}
                   onChange={handleChangeDriver}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                   pattern=".+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}"
+                  placeholder="Ejemplo@gmail.com"
                   required
                 />
               </div>
@@ -195,12 +216,14 @@ function FormDriver() {
               <div>
                 <label htmlFor="contrasena" className="block text-gray-700 dark:text-white mb-1">Contraseña</label>
                 <input
-                  type="tel"
+                  type="text"
                   id="contrasena"
                   name="contrasena"
                   value={formDataDriver.contrasena}
                   onChange={handleChangeDriver}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                  placeholder="Entre 8-12 Caracteres"
+                  pattern=".{8,12}"
                   required
                 />
               </div>
@@ -268,15 +291,23 @@ function FormDriver() {
 
                 <div>
                 <label htmlFor="gradoLicencia" className="block text-gray-700 dark:text-white mb-1">Grado Licencia</label>
-                <input
-                  type="tel"
-                  id="gradoLicencia"
-                  name="gradoLicencia"
-                  value={formDataDriver.gradoLicencia}
-                  onChange={handleChangeDriver}
-                  className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                  required
-                />
+                <select
+                        id="gradoLicencia"
+                        name="gradoLicencia"
+                        value={formDataDriver.gradoLicencia}
+                        onChange={handleChangeDriver}
+                        className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                        required
+                      >
+                          <option value="" disabled>
+                            Selecciona un tipo
+                          </option>
+                              <option value="1">1-Grado</option>
+                              <option value="2">2-Grado</option>
+                              <option value="3">3-Grado</option>
+                              <option value="4">4-Grado</option>
+                              <option value="5">5-Grado</option>
+                              </select> 
               </div>
               
 

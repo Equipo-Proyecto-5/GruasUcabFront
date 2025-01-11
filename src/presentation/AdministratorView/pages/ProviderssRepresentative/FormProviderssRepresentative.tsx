@@ -111,13 +111,12 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               <div>
                 <label htmlFor="fechaNacimiento" className="block text-gray-700 dark:text-white mb-1">Fecha de Nacimiento</label>
                 <input
-                  type="text"
+                  type="date"
                   id="fechaNacimiento"
                   name="fechaNacimiento"
                   value={formData.fechaNacimiento}
                   onChange={handleChange}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                  placeholder="25/03/2002"
                   required
                 />
               </div> 
@@ -130,7 +129,8 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                   value={formData.numeroTelefono}
                   onChange={handleChange}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                  placeholder="0414-5767916"
+                  pattern="[0-9]{4}-[0-9]{7}"
+                  placeholder="XXXX-XXXXXXX"
                   required
                 />
               </div> 
@@ -139,13 +139,14 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               <div>
                 <label htmlFor="correo" className="block text-gray-700 dark:text-white mb-1">Correo</label>
                 <input
-                  type="text"
+                  type="email"
                   id="correo"
                   name="correo"
                   value={formData.correo}
                   onChange={handleChange}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                  placeholder="Gaby@gmail.com"
+                  pattern="[a-zA-Z]{1,}@[a-zA-Z0-9]+\.[a-zA-Z]{2,}"
+                  placeholder="Ejemplo@gmail.com"
                   required
                 />
               </div>
@@ -158,7 +159,8 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                   value={formData.contrasena}
                   onChange={handleChange}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                  placeholder="123Hola"
+                  placeholder="Entre 8-12 Caracteres"
+                  pattern=".{8,12}"
                   required
                 />
               </div>
@@ -224,7 +226,8 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                   value={formData.numeroDocumentoIdentidad}
                   onChange={handleChange}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                  placeholder="29919287"
+                  placeholder="XXXXXXXX"
+                   pattern="[0-9]{8,9}"
                   required
                 />
               </div>

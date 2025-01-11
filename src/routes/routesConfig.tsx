@@ -18,7 +18,7 @@ import FormDriver from '../presentation/AdministratorView/pages/Drivers/FormDriv
 import Notifications from '../presentation/AdministratorView/pages/Notifications/Notifications';
 import FormNotifications from '../presentation/AdministratorView/pages/Notifications/FormNotifications';
 import ActionOrder from '@/presentation/AdministratorView/pages/Orders/ActionOrder';
-
+import { useAuth } from '../AuthContext';
 
 
 
@@ -41,6 +41,7 @@ export const routesConfig = {
     { path: "formoperators", element: <FormOperators />},
     { path: "formoperators/editar/:id", element: <FormOperators />},
     { path: "providerssrepresentative", element: <ProviderssRepresentative />},
+    { path: "formproviderssrepresentative", element: <FormProviderssRepresentative />},
     { path: "formproviderssrepresentative/editar/:id", element: <FormProviderssRepresentative />},
     { path: "departments", element: <Departments />,},
     { path: "formdepartments/editar/:id", element: <FormDepartments />},
@@ -58,6 +59,8 @@ export const routesConfig = {
     { path: "orders", element: <Orders /> },
     { path: "formorders", element: <FormOrders />},
     { path: "formordersstep", element: <FormOrdersStep />},
+    { path: "actionorder/:id", element: <ActionOrder /> },
+
     // Define rutas específicas del operador
   ],
   provider: [
@@ -87,6 +90,17 @@ export const getBasePath = (role: any) => {
 };
 
 export const getUserRole = () => {
+  const { user} = useAuth();
+   if (user?.role=="Administrador"){
+    return "admin"
+   }
+   if (user?.role=="Operador"){
+    return "operator"
+   }
+   if (user?.role=="Representante"){
+    return "provider"
+   }
+   
   // Simula obtener el rol; cámbialo según tu lógica real.
-  return "admin"; // "admin", "operator", "provider", etc.
+  // "admin", "operator", "provider", etc.
 };
