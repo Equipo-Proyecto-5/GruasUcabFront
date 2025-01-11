@@ -18,6 +18,7 @@ import Drivers from '../presentation/AdministratorView/pages/Drivers/Drivers';
 import Notifications from '../presentation/AdministratorView/pages/Notifications/Notifications';
 import FormNotifications from '../presentation/AdministratorView/pages/Notifications/FormNotifications';
 import ActionOrder from '@/presentation/AdministratorView/pages/Orders/ActionOrder';
+import ChangePassword from '@/presentation/AdministratorView/pages/ConfigurationUser/ChangePassword';
 
 
 
@@ -51,6 +52,7 @@ export const routesConfig = {
     { path: "notifications", element: <Notifications /> },
     { path: "formnotifications", element: <FormNotifications /> },
     { path: "actionorder/:id", element: <ActionOrder /> },
+    { path: "changepassword", element: <ChangePassword /> },
     
     // Agrega todas las rutas del administrador
   ],
@@ -58,6 +60,7 @@ export const routesConfig = {
     { path: "orders", element: <Orders /> },
     { path: "formorders", element: <FormOrders />},
     { path: "formordersstep", element: <FormOrdersStep />},
+    { path: "changepassword", element: <ChangePassword /> },
     // Define rutas específicas del operador
   ],
   provider: [
@@ -65,6 +68,7 @@ export const routesConfig = {
     { path: "cranes/:providerId", element: <Cranes /> },
     { path: "formcranes/:providerId", element: <FormCrane />},
     { path: "formcranes/editar/:id/:providerId", element: <FormCrane />},
+    { path: "changepassword", element: <ChangePassword /> },
     // Define rutas específicas del proveedor
   ],
 
@@ -88,5 +92,5 @@ export const getBasePath = (role: any) => {
 
 export const getUserRole = () => {
   // Simula obtener el rol; cámbialo según tu lógica real.
-  return "admin"; // "admin", "operator", "provider", etc.
+  return "operator"; // "admin", "operator", "provider", etc.
 };
