@@ -5,16 +5,23 @@ import { Link} from "react-router-dom";
 import logo from '../../../assets/LogoUCAB-removebg-preview.png';
 import { useAuth } from '../../../AuthContext';
 
+
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isOtherMenuOpen, setIsOtherMenuOpen] = useState(false);
   const { user} = useAuth();
+
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
+  };
+
+  const toggleOtherMenu = () => {
+    setIsOtherMenuOpen(!isOtherMenuOpen);
   };
 
 
@@ -87,8 +94,8 @@ function SideBar() {
           </Link>
 
 
- {/* Gestión de Usuarios con Submenú */}
- <li className="flex flex-col">
+      {/* Gestión de Usuarios con Submenú */}
+      <li className="flex flex-col">
             <button
               onClick={toggleUserMenu}
               className="flex items-center p-4 w-full hover:bg-gray-700"
@@ -120,10 +127,29 @@ function SideBar() {
           </li>
 
 
-          <li className="flex items-center p-4 hover:bg-gray-700">
-            <FaCog className="mr-3" />
-            {isOpen && <span>Configuración</span>}
+             {/* Gestión de Configuraciones con Submenú */}
+
+          <li className="flex flex-col">
+            <button
+              onClick={toggleOtherMenu}
+              className="flex items-center p-4 w-full hover:bg-gray-700"
+            >
+              <FaCog className="mr-3" />
+              {isOpen && <span>Configuración</span>}
+            </button>
+
+            {/* Submenú visible solo si isUserMenuOpen es true */}
+            {isOtherMenuOpen && (
+              <ul className="pl-8 space-y-2">
+                <Link to="/admin/changepassword" className="flex items-center w-full hover:bg-gray-700">
+                  <li className="flex items-center p-2">
+                    {isOpen && <span>Cambio de Contraseña</span>}
+                  </li>
+                </Link>
+              </ul>
+            )}
           </li>
+         
         </ul>
 
         <div className="p-4 bg-gray-800">
@@ -133,7 +159,7 @@ function SideBar() {
             </div>
             {isOpen && (
               <div className="text-left">
-                <p className="text-gray-400 text-sm">{user?.email}</p>
+              <p className="text-gray-400 text-sm">{user?.email}</p>
               </div>
             )}
           </div>
@@ -148,3 +174,4 @@ function SideBar() {
 }
 
 export default SideBar;
+

@@ -23,7 +23,7 @@ const ChangePasswordPage = () => {
     //console.log(encodeURIComponent(username));
     console.log(data.Password)
     try {
-      const response = await fetch(`https://localhost:7133/api/auth/${encodeURIComponent(username)}`, {
+      const response = await fetch(`http://localhost:86/api/auth/${encodeURIComponent(username)}`, {
        
         method: "PUT",
         headers: {

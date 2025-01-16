@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 //import Providerss from '@/presentation/AdministratorView/pages/Providerss/Providerss';
 
 export const fetchDepartmentApi = async () => {
-    const response = await fetch('https://localhost:7157/api/Departamento');// Colocar la URL de tu backend cuando se configure el cors
+    const response = await fetch('http://localhost:83/api/Departamento');// Colocar la URL de tu backend cuando se configure el cors
     if (!response.ok) {
         throw new Error('Failed to fetch rates');
     }
@@ -18,7 +18,7 @@ export const createDepartmentApi = async (rate: IDepartment): Promise<IDepartmen
     
 
     console.log(newDepartment)
-    const response = await fetch('https://localhost:7157/api/Departamento', {
+    const response = await fetch('http://localhost:83/api/Departamento', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export const updateDepartmentApi = async (rate: IDepartment): Promise<IDepartmen
     }
    
 
-    const response = await fetch(`https://localhost:7157/api/Departamento/${rate.id}`, {
+    const response = await fetch(`http://localhost:83/api/Departamento/${rate.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export const updateDepartmentApi = async (rate: IDepartment): Promise<IDepartmen
 };
 
 export const deleteDepartmentApi = async (id: string): Promise<void> => {
-    const response = await fetch(`https://localhost:7157/api/Departamento/${id}`, {
+    const response = await fetch(`http://localhost:83/api/Departamento/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

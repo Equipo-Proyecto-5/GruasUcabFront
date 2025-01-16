@@ -19,6 +19,7 @@ import Notifications from '../presentation/AdministratorView/pages/Notifications
 import FormNotifications from '../presentation/AdministratorView/pages/Notifications/FormNotifications';
 import ActionOrder from '@/presentation/AdministratorView/pages/Orders/ActionOrder';
 import { useAuth } from '../AuthContext';
+import ChangePassword from '@/presentation/AdministratorView/pages/ConfigurationUser/ChangePassword';
 
 
 
@@ -52,7 +53,8 @@ export const routesConfig = {
     { path: "notifications", element: <Notifications /> },
     { path: "formnotifications", element: <FormNotifications /> },
     { path: "actionorder/:id", element: <ActionOrder /> },
-    
+    { path: "changepassword", element: <ChangePassword /> },
+
     // Agrega todas las rutas del administrador
   ],
   operator: [
@@ -60,6 +62,7 @@ export const routesConfig = {
     { path: "formorders", element: <FormOrders />},
     { path: "formordersstep", element: <FormOrdersStep />},
     { path: "actionorder/:id", element: <ActionOrder /> },
+    { path: "changepassword", element: <ChangePassword /> },
 
     // Define rutas específicas del operador
   ],
@@ -68,6 +71,8 @@ export const routesConfig = {
     { path: "cranes/:providerId", element: <Cranes /> },
     { path: "formcranes/:providerId", element: <FormCrane />},
     { path: "formcranes/editar/:id/:providerId", element: <FormCrane />},
+    { path: "changepassword", element: <ChangePassword /> },
+
     // Define rutas específicas del proveedor
   ],
 

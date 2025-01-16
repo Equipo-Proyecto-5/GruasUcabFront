@@ -5,14 +5,19 @@ import { Link} from "react-router-dom";
 import logo from '../../../assets/LogoUCAB-removebg-preview.png';
 import { useAuth } from '../../../AuthContext';
 
-
 function SideBarOp() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOtherMenuOpen, setIsOtherMenuOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
+  const toggleOtherMenu = () => {
+    setIsOtherMenuOpen(!isOtherMenuOpen);
+  };
   const { user} = useAuth();
+
 
  
 
@@ -66,10 +71,30 @@ function SideBarOp() {
           </Link>
  
 
-          <li className="flex items-center p-4 hover:bg-gray-700">
-            <FaCog className="mr-3" />
-            {isOpen && <span>Configuración</span>}
+             {/* Gestión de Configuraciones con Submenú */}
+
+             <li className="flex flex-col">
+            <button
+              onClick={toggleOtherMenu}
+              className="flex items-center p-4 w-full hover:bg-gray-700"
+            >
+              <FaCog className="mr-3" />
+              {isOpen && <span>Configuración</span>}
+            </button>
+
+            {/* Submenú visible solo si isUserMenuOpen es true */}
+            {isOtherMenuOpen && (
+              <ul className="pl-8 space-y-2">
+                <Link to="/operator/changepassword" className="flex items-center w-full hover:bg-gray-700">
+                  <li className="flex items-center p-2">
+                    {isOpen && <span>Cambio de Contraseña</span>}
+                  </li>
+                </Link>
+              </ul>
+            )}
           </li>
+
+
         </ul>
 
         <div className="p-4 bg-gray-800">
@@ -79,7 +104,7 @@ function SideBarOp() {
             </div>
             {isOpen && (
               <div className="text-left">
-                <p className="text-gray-400 text-sm">{user?.email}</p>
+              <p className="text-gray-400 text-sm">{user?.email}</p>
               </div>
             )}
           </div>

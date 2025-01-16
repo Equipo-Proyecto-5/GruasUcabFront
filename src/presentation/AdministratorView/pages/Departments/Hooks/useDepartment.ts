@@ -51,7 +51,7 @@ useEffect(() => {
                 }
                 setError(null);
             } catch (err) {
-                setError((err as Error).message || "Error al obtener la tarifa");
+                setError((err as Error).message || "Error al obtener el departamento");
             } finally {
                 setLoading(false);
             }
@@ -138,7 +138,7 @@ const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
             if (createdDepartment) {
                 const adaptedDepartment = adaptDepartmentData(createdDepartment);
                 setDepartments((prevDepartments) => [...prevDepartments, adaptedDepartment]);
-                toast.success("Tarifa creada exitosamente.");
+                toast.success("Departamento creado exitosamente.");
                 resetForm();
             }
         }
