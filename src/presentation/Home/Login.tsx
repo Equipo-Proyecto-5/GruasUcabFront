@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const response = await fetch("https://localhost:7133/api/auth/login", {
+      const response = await fetch("http://localhost:86/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const LoginPage = () => {
       }
       const responseData = await response.json();
        //Obtener datos adicionales
-      const additionalResponse = await fetch(`https://localhost:7157/api/Usuario/${responseData.role}/${responseData.username}`, {
+      const additionalResponse = await fetch(`http://localhost:83/api/Usuario/${responseData.role}/${responseData.username}`, {
         method: "GET",
       });
 
