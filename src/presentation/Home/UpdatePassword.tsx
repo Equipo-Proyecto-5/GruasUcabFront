@@ -19,11 +19,13 @@ const ChangePasswordPage = () => {
     formState: { errors },
   } = useForm<ChangePasswordInputs>();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const onSubmit = async (data: ChangePasswordInputs) => {
     //console.log(encodeURIComponent(username));
     console.log(data.Password)
     try {
-      const response = await fetch(`https://localhost:7133/api/auth/${encodeURIComponent(username)}`, {
+      const response = await fetch(`${API_URL}/api/auth/${encodeURIComponent(username)}`, {
        
         method: "PUT",
         headers: {

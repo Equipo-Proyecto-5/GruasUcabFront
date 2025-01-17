@@ -2,8 +2,11 @@ import { IRepProvider} from '@/models/RepProvider';
 import toast from 'react-hot-toast';
 //import Providerss from '@/presentation/AdministratorView/pages/Providerss/Providerss';
 
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const fetchRepProviderApi = async () => {
-    const response = await fetch('https://localhost:7157/api/Usuario/RepresentanteProveedor');// Colocar la URL de tu backend cuando se configure el cors
+    const response = await fetch(`${API_URL}/api/Usuario/RepresentanteProveedor`);// Colocar la URL de tu backend cuando se configure el cors
     if (!response.ok) {
         throw new Error('Failed to fetch Representative of the providers');
     }
@@ -19,7 +22,7 @@ export const createRepProviderApi = async (repProvider: IRepProvider): Promise<I
     newRepProvider.gradoLicencia=null;
 
     console.log(newRepProvider)
-    const response = await fetch('https://localhost:7157/api/Usuario', {
+    const response = await fetch(`${API_URL}/api/Usuario`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -42,7 +45,7 @@ export const updateRepProviderApi = async (repProvider: IRepProvider): Promise<I
     repProvider.tipoUsuario="RepresentanteProveedor"
     console.log(repProvider)
 
-    const response = await fetch(`https://localhost:7157/api/Usuario/${repProvider.id}`, {
+    const response = await fetch(`${API_URL}/api/Usuario/${repProvider.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -64,7 +67,7 @@ export const updateRepProviderApi = async (repProvider: IRepProvider): Promise<I
 };
 
 export const deleteRepProviderApi = async (id: string): Promise<void> => {
-    const response = await fetch(`https://localhost:7157/api/Usuario/${id}`, {
+    const response = await fetch(`${API_URL}/api/Usuario/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

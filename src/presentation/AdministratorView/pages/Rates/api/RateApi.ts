@@ -2,8 +2,12 @@ import { IRate } from '@/models/Rate';
 import toast from 'react-hot-toast';
 //import Providerss from '@/presentation/AdministratorView/pages/Providerss/Providerss';
 
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 export const fetchRateApi = async () => {
-    const response = await fetch('https://localhost:7057/api/Tarifa');// Colocar la URL de tu backend cuando se configure el cors
+    const response = await fetch(`${API_URL}/api/Tarifa`);// Colocar la URL de tu backend cuando se configure el cors
     if (!response.ok) {
         throw new Error('Failed to fetch rates');
     }
@@ -18,7 +22,7 @@ export const createRateApi = async (rate: IRate): Promise<IRate> => {
     
 
     console.log(newRate)
-    const response = await fetch('https://localhost:7057/api/Tarifa', {
+    const response = await fetch(`${API_URL}/api/Tarifa`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +43,7 @@ export const updateRateApi = async (rate: IRate): Promise<IRate| null> => {
     }
    
 
-    const response = await fetch(`https://localhost:7057/api/Tarifa/${rate.id}`, {
+    const response = await fetch(`${API_URL}/api/Tarifa/${rate.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +65,7 @@ export const updateRateApi = async (rate: IRate): Promise<IRate| null> => {
 };
 
 export const deleteRateApi = async (id: string): Promise<void> => {
-    const response = await fetch(`https://localhost:7057/api/Tarifa/${id}`, {
+    const response = await fetch(`${API_URL}/api/Tarifa/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
