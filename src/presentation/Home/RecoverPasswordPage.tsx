@@ -12,9 +12,11 @@ const RecoverPasswordPage = () => {
     formState: { errors },
   } = useForm<RecoverPasswordInputs>();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const onSubmit = async (data: RecoverPasswordInputs) => {
     try {
-      const response = await fetch("https://localhost:7133/api/auth/password-reset", {
+      const response = await fetch(`${API_URL}/api/auth/password-reset`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

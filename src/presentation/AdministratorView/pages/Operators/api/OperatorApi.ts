@@ -2,8 +2,10 @@ import { IOperator } from '@/models/Operator';
 import toast from 'react-hot-toast';
 //import Providerss from '@/presentation/AdministratorView/pages/Providerss/Providerss';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const fetchOperatorApi = async () => {
-    const response = await fetch('https://localhost:7157/api/Usuario/Operador');// Colocar la URL de tu backend cuando se configure el cors
+    const response = await fetch(`${API_URL}/api/Usuario/Operador`);// Colocar la URL de tu backend cuando se configure el cors
     if (!response.ok) {
         throw new Error('Failed to fetch Operadores');
     }
@@ -20,7 +22,7 @@ export const createOperatorApi = async (operator: IOperator): Promise<IOperator>
     newOperator.gradoLicencia=null;
 
     console.log(newOperator)
-    const response = await fetch('https://localhost:7157/api/Usuario', {
+    const response = await fetch(`${API_URL}/api/Usuario`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -43,7 +45,7 @@ export const updateOperatorApi = async (operator: IOperator): Promise<IOperator 
     operator.tipoUsuario="Operador"
     console.log(operator)
 
-    const response = await fetch(`https://localhost:7157/api/Usuario/${operator.id}`, {
+    const response = await fetch(`${API_URL}/api/Usuario/${operator.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -65,7 +67,7 @@ export const updateOperatorApi = async (operator: IOperator): Promise<IOperator 
 };
 
 export const deleteOperatorApi = async (id: string): Promise<void> => {
-    const response = await fetch(`https://localhost:7157/api/Usuario/${id}`, {
+    const response = await fetch(`${API_URL}/api/Usuario/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

@@ -18,9 +18,11 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<LoginFormInputs>();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const response = await fetch("http://localhost:86/api/auth/login", {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +39,7 @@ const LoginPage = () => {
       }
       const responseData = await response.json();
        //Obtener datos adicionales
-      const additionalResponse = await fetch(`http://localhost:83/api/Usuario/${responseData.role}/${responseData.username}`, {
+      const additionalResponse = await fetch(`${API_URL}/api/Usuario/${responseData.role}/${responseData.username}`, {
         method: "GET",
       });
 

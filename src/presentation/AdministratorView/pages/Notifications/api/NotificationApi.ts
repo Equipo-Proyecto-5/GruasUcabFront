@@ -2,8 +2,11 @@ import {INotification } from '@/models/Notification';
 import toast from 'react-hot-toast';
 //import Providerss from '@/presentation/AdministratorView/pages/Providerss/Providerss';
 
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const fetchNotificationApi = async () => {
-    const response = await fetch('https://localhost:7157/api/Notificacion');// Colocar la URL de tu backend cuando se configure el cors
+    const response = await fetch(`${API_URL}/api/Notificacion`);// Colocar la URL de tu backend cuando se configure el cors
     if (!response.ok) {
         throw new Error('Failed to fetch rates');
     }
@@ -31,7 +34,7 @@ export const createNotificationApi = async (notification: INotification): Promis
 
     console.log(newNotification)
     console.log("En create")
-    const response = await fetch('https://localhost:7157/api/Notificacion', {
+    const response = await fetch(`${API_URL}/api/Notificacion`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -65,7 +68,7 @@ export const updateNotificationApi = async (notification: INotification): Promis
       }
       console.log(newNotification)
 
-    const response = await fetch(`https://localhost:7157/api/Notificacion/${notification.id}`, {
+    const response = await fetch(`${API_URL}/api/Notificacion/${notification.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -87,7 +90,7 @@ export const updateNotificationApi = async (notification: INotification): Promis
 };
 
 export const deleteNotificationApi = async (id: string): Promise<void> => {
-    const response = await fetch(`https://localhost:7157/api/Notificacion/${id}`, {
+    const response = await fetch(`${API_URL}/api/Notificacion/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
