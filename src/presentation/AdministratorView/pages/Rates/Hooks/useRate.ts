@@ -68,11 +68,7 @@ const loadRates = async () => {
     setLoading(true);
     try {
         const ratesData = await fetchRateApi();
-
-        // Filtra los proveedores activos
-       // const activeOperators = operatorsData.filter(
-        //    (operator: IRates) => operator.estatus === "Activo"
-       // );
+     
         setRates(ratesData.map(adaptRateData));
     } catch {
         toast.error("Error al cargar las tarifas");
@@ -100,7 +96,7 @@ const handleChange = (
 };
 // Función para manejar el envío del formulario
 const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
-    if (e) e.preventDefault(); // Solo previene el comportamiento por defecto si se pasa el evento
+    if (e) e.preventDefault();
     setLoading(true);
     setSuccessMessage(null);
 
@@ -115,7 +111,7 @@ const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
 
         if (rateId) {
             // Actualizar el proveedor existente
-            const result = await updateRateApi(fullFormData);
+            const result = await updateRateApi(fullFormData); // La API lanza un error si falla
             if (result === null) {
                 // Caso 204 No Content
                 setRates((prevRates) =>
@@ -123,35 +119,37 @@ const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
                         p.id === rateId ? { ...p, ...formData } : p
                     )
                 );
-                toast.success("Tarifa actualizado exitosamente.");
+                toast.success("Tarifa actualizada exitosamente.");
             } else {
                 // Caso respuesta con contenido
                 const adaptedRate = adaptRateData(result);
-                setRates(( prevRates) =>
+                setRates((prevRates) =>
                     prevRates.map((p) =>
                         p.id === adaptedRate.id ? adaptedRate : p
                     )
                 );
-                toast.success("Tarifa actualizado exitosamente.");
-                // Redirige a la página anterior
+                toast.success("Tarifa actualizada exitosamente.");
             }
-            setTimeout(() => navigate(-1), 2000); // Redirige a la página anterior
+            navigate("/admin/rates");
+            //setTimeout(() => navigate("rates"), 2000); // Redirige a la página anterior
         } else {
             // Crear un nuevo proveedor
-            const createdRate = await createRateApi(fullFormData);
-            if (createdRate) {
-                const adaptedRate = adaptRateData(createdRate);
-                setRates((prevRates) => [...prevRates, adaptedRate]);
-                toast.success("Tarifa creada exitosamente.");
-                resetForm();
-            }
+            const createdRate = await createRateApi(fullFormData); // La API lanza un error si falla
+            const adaptedRate = adaptRateData(createdRate);
+            setRates((prevRates) => [...prevRates, adaptedRate]);
+            toast.success("Tarifa creada exitosamente.");
+            resetForm();
         }
-    } catch {
-        toast.error("Error al procesar la solicitud");
+    } catch (error: any) {
+        console.error("Error capturado:", error); // Log para depurar el error
+        toast.error(error.message || "Error al procesar la solicitud");
     } finally {
         setLoading(false);
+        navigate("/admin/rates");
+       // setTimeout(() => navigate(-1), 2000); // Redirige a la página anterior
     }
 };
+
 // Función para manejar la eliminación de un proveedor
 const handleDeleteRate = async (id: string) => {
     setLoading(true);

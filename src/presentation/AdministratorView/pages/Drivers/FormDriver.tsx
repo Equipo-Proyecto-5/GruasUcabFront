@@ -39,22 +39,7 @@ function FormDriver() {
   };
 
   // Maneja el envío del formulario con la validación de eventos
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    // Setear el valor de selectedProvider a idEmpresaProveedor
-    if (selectedProvider) {
-      formDataDriver.idEmpresaProveedor = selectedProvider;
-      console.log("selectedProvider asignado a idEmpresaProveedor:", formDataDriver.idEmpresaProveedor);
-    }
-  
-    console.log("Valor enviado:", selectedProvider); 
-    if (isEditMode) {
-      setIsModalOpen(true);
-    } else {
-      handleSubmitDriver(e); // Llamar a la función de envío
-    }
-  };
+ 
   
 
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -207,7 +192,7 @@ function FormDriver() {
                   value={formDataDriver.correo}
                   onChange={handleChangeDriver}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                   pattern=".+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}"
+                  // pattern=".+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}"
                   placeholder="Ejemplo@gmail.com"
                   required
                 />
@@ -223,7 +208,7 @@ function FormDriver() {
                   onChange={handleChangeDriver}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                   placeholder="Entre 8-12 Caracteres"
-                  pattern=".{8,12}"
+                 // pattern=".{8,12}"
                   required
                 />
               </div>

@@ -1,5 +1,4 @@
 import { IRate } from '@/models/Rate';
-import toast from 'react-hot-toast';
 //import Providerss from '@/presentation/AdministratorView/pages/Providerss/Providerss';
 
 
@@ -31,8 +30,9 @@ export const createRateApi = async (rate: IRate): Promise<IRate> => {
     });
 
     if (!response.ok) {
-        toast.error('Error al Registrar la tarifa');
+        throw new Error('Error al registrar la tarifa');
     }
+
     return response.json(); // Devuelve la respuesta sin adaptar
 };
 
@@ -52,7 +52,7 @@ export const updateRateApi = async (rate: IRate): Promise<IRate| null> => {
     });
 
     if (!response.ok) {
-        throw new Error('Failed to update rate');
+        throw new Error('Fallo la actualizacion de tarifas');
     }
 
     if (response.status === 204) {

@@ -10,7 +10,7 @@ import { useAuth } from '../../../../AuthContext';
 //Hay que arreglar al traer los datos de Operador de cabina el icono de basura no se muestra se anade un FAtrash
 
 function Operators() {
-  const { user, logout } = useAuth();
+  const { user} = useAuth();
 
   const { operators, loading, error, handleDeleteOperator } = useOperators(); // Usa el hook para obtener los proveedores
   const [isModalOpen, setIsModalOpen] = useState(false);

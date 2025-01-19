@@ -142,7 +142,7 @@ export const useProviders = (providerId?: string) => {
                     toast.success("Proveedor actualizado exitosamente.");
                     // Redirige a la página anterior
                 }
-                setTimeout(() => navigate(-1), 2000); // Redirige a la página anterior
+                navigate("/admin/providerss"); // Redirige a la página anterior
             } else {
                 // Crear un nuevo proveedor
                 const createdProvider = await createProviderApi(fullFormData);
@@ -157,6 +157,7 @@ export const useProviders = (providerId?: string) => {
             toast.error("Error al procesar la solicitud");
         } finally {
             setLoading(false);
+            navigate("/admin/providerss");
         }
     };
 

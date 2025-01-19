@@ -129,7 +129,7 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       </div>
       <Modal
         title="Confirmar Modificacion"
-        message="¿Estás seguro de que deseas Modificar este proveedor?"
+        message="¿Estás seguro de que deseas Modificar esta Tarifa?"
         isOpen={isModalOpen}
         onConfirm={confirmEdit}
         onCancel={closeModal}
