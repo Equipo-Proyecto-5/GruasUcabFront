@@ -2,7 +2,7 @@ import { useState } from "react";
 import {  FaClipboardList, FaCog, FaUserCircle } from 'react-icons/fa';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi'; 
 import { Link} from "react-router-dom";
-import logo from '../../../assets/LogoUCAB-removebg-preview.png';
+import logo from '../../../assets/logoucab.png';
 import { useAuth } from '../../../AuthContext';
 
 function SideBarOp() {
