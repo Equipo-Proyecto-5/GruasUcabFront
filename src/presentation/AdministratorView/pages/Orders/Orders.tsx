@@ -63,7 +63,6 @@ function Orders() {
               <th scope="col" className="px-6 py-3 text-center">Cobertura Póliza</th>
               <th scope="col" className="px-6 py-3 text-center">Nombre del Asegurado</th>
               <th scope="col" className="px-6 py-3 text-center">Nombre del Denunciante</th>
-              <th scope="col" className="px-6 py-3 text-center">Emitida por</th>
               <th scope="col" className="px-6 py-3 text-center">Fecha de Emisión</th>
               <th scope="col" className="px-6 py-3 text-center">Estatus</th>
               <th scope="col" className="px-6 py-3 text-primary">
@@ -88,7 +87,6 @@ function Orders() {
                 <td className="px-6 py-4 text-center text-black dark:text-white">{order.coberturaBasePoliza} $</td>
                 <td className="px-6 py-4 text-center text-black dark:text-white">{order.nombreAsegurado}</td>
                 <td className="px-6 py-4 text-center text-black dark:text-white">{order.nombreDenunciante}</td>
-                <td className="px-6 py-4 text-center text-black dark:text-white">{order.Administratorid || "Desconocido"}</td>
                 <td className="px-6 py-4 text-center text-black dark:text-white">{new Date(order.fecha).toLocaleDateString()}</td>
                 <td className="px-6 py-4 text-center text-black dark:text-white">{order.estatus}</td>
                 <td className="px-6 py-4 text-right">

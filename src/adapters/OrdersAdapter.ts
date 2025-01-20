@@ -13,7 +13,7 @@ export const adaptOrderData = (order: IOrder): IOrder => {
         direccionOrigen: order.direccionOrigen,
         direccionDestino: order.direccionDestino,
         cantidadKmExtra: order.cantidadKmExtra,
-        costosServiciosAdicionales: order.costosServiciosAdicionales,
+        costoServiciosAdicionales: order.costoServiciosAdicionales,
         costoTotalKmExtra: order.costoTotalKmExtra,
         costoTotal: order.costoTotal,
         nombreDenunciante: order.nombreDenunciante,

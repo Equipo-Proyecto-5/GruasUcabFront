@@ -169,21 +169,35 @@ export const useDriver = (driverId?: string) => {
                 }
                 setTimeout(() => navigate(-1), 2000); // Redirige a la página anterior
             } else {
-                // Crear un nuevo proveedor
-                const createdDriver = await createDriverApi(fullFormData);
-                if (createdDriver) {
-                    const adaptedDriver = adaptDriverData(createdDriver);
-                    setDrivers((prevDrivers) => [...prevDrivers, adaptedDriver]);
-                    toast.success("Conductor creado exitosamente.");
-                    resetForm();
+                try {
+                    const createdDriver = await createDriverApi(fullFormData);
+            
+                    if (createdDriver) {
+                        // Adaptar los datos del conductor si es necesario
+                        const adaptedDriver = adaptDriverData(createdDriver);
+            
+                        // Actualizar la lista de conductores con el nuevo conductor
+                        setDrivers((prevDrivers) => [...prevDrivers, adaptedDriver]);
+            
+                        // Mostrar mensaje de éxito
+                        toast.success("Conductor creado exitosamente.");
+            
+                        // Reiniciar el formulario
+                        resetForm();
+                    } 
+                } catch (error) {
+                    // Capturar el mensaje del error y mostrarlo en un toast
+            const errorMsg = error instanceof Error ? error.message : "Error desconocido.";
+            toast.error(`Error al procesar la solicitud: ${errorMsg}`);
+            console.error("Detalles del error:", error);
                 }
             }
-        } catch {
-            toast.error("Error al procesar la solicitud");
-        } finally {
-            setLoading(false);
-        }
-    };
+            // Cierre del bloque try-catch global
+            } finally {
+                // Detener el indicador de carga
+                setLoading(false);
+            }
+    }
 
     // Función para manejar la eliminación de un proveedor
     const handleDeleteDriver = async (id: string) => {

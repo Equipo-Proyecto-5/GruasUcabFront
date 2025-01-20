@@ -127,7 +127,7 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                     <select
                     id="frecuencia"
                     name="frecuencia"
-                    value={formData.tipoEnvio === "Recurrente" ? formData.tipoEnvio || "Extemporaneo" : ""}
+                    value={formData.frecuencia ?? ""}
                     onChange={handleChange}
                     className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                     required={formData.tipoEnvio === "Recurrente"}
@@ -136,7 +136,7 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                     <option value="" disabled>
                         Selecciona un tipo
                     </option>
-                        <option value="Diario">Diario</option>
+                        <option value="Diaria">Diario</option>
                         <option value="Semanal">Semanal</option>
                         <option value="Mensual">Mensual</option>
 
@@ -168,7 +168,7 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                   name="horaEnvio"
                   min="00:00" 
                   max="23:59"
-                  value={formData.tipoEnvio === "Recurrente" ? formData.horaEnvio || "" : ""}
+                  value={formData.horaEnvio ?? "00:00"}
                   onChange={handleChange}
                   className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                   placeholder="RRHH"
@@ -234,11 +234,7 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
                 />
               </div>
-              
-                
-            
-           
-             
+
             {error && (
               <div className="mt-4 text-red-600">
                 {error}

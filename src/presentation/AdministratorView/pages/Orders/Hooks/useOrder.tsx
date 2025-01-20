@@ -16,7 +16,7 @@ const initialFormData: IOrder = {
     direccionOrigen: "",
     direccionDestino: "",
     cantidadKmExtra: "",
-    costosServiciosAdicionales: "",
+    costoServiciosAdicionales: "",
     costoTotalKmExtra: "",
     costoTotal: "",
     nombreDenunciante: "",

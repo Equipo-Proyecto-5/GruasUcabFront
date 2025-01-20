@@ -1,6 +1,7 @@
 import { IDriver } from '@/models/Driver';
 import toast from 'react-hot-toast';
 
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchDriverApi = async () => {
@@ -12,34 +13,49 @@ export const fetchDriverApi = async () => {
     return data;
 };
 
+export const createDriverApi = async (driver: IDriver): Promise<IDriver | null> => {
+    try {
+        const driverToSend = {
+            ...driver,
+            tipoUsuario: 'Conductor', // Tipo de usuario fijo
+            segundoNombre: driver.segundoNombre || null,
+            segundoApellido: driver.segundoApellido || null,
+            idEmpresaProveedor: null, // Ajustar según sea necesario
+        };
 
-export const createDriverApi = async (driver: IDriver): Promise<IDriver> => {
-   
-   const driverToSend = {
-       ...driver,
-        tipoUsuario: 'Conductor', // Tipo de usuario fijo
-        segundoNombre: driver.segundoNombre || null,  
-        segundoApellido: driver.segundoApellido || null,  
-        //idEmpresaProveedor:null no esta llenando este campo
-    };
-    console.log("Crear")
-    console.log(driverToSend)
+        console.log("Enviando datos para crear el conductor:", driverToSend);
 
-    const response = await fetch(`${API_URL}/api/Usuario`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(driverToSend), 
-    });
+        const response = await fetch(`${API_URL}/api/Usuario`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(driverToSend),
+        });
 
-    if (!response.ok) {
-        console.log(response)
-        toast.error('Error Conductor ya Registrado');
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            console.error("Error de respuesta:", errorMessage);
+            throw new Error(`Error al crear el conductor: ${errorMessage}`);
+        }
+
+        const result = await response.json();
+        console.log("Respuesta del backend:", result);
+
+        // Validar el contenido de la respuesta
+        if (result.status === 200) {
+            toast.success(result.message || "Conductor creado exitosamente");
+            return result.data || null; // Retorna los datos del conductor si están disponibles
+        }
+
+        throw new Error('Error inesperado en la creación del conductor.');
+    } catch (error) {
+        console.error("Error al procesar la solicitud:", error);
+        toast.error("No se pudo crear el conductor. Por favor, inténtalo de nuevo.");
+        throw error;
     }
-
-    return response.json(); // Devuelve la respuesta sin adaptar
 };
+
 
 
 

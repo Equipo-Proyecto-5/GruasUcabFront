@@ -8,7 +8,7 @@ export interface IOrder {
     direccionOrigen: string;
     direccionDestino: string;
     cantidadKmExtra?: string;
-    costosServiciosAdicionales?: string;
+    costoServiciosAdicionales?: string;
     costoTotalKmExtra?: string;
     costoTotal: string;
     nombreDenunciante: string;

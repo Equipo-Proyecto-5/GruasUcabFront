@@ -1,7 +1,5 @@
 import {INotification } from '@/models/Notification';
 import toast from 'react-hot-toast';
-//import Providerss from '@/presentation/AdministratorView/pages/Providerss/Providerss';
-
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -17,23 +15,24 @@ export const fetchNotificationApi = async () => {
 };
 
 
-
 export const createNotificationApi = async (notification: INotification): Promise<INotification> => {
-    
     const { id, vigencia, ...newNotification } = notification;
-    if (newNotification.tipoEnvio="Extemporaneo") {
-        newNotification.horaEnvio= null;
-        newNotification.diaDelMes=null;
-        newNotification.frecuencia=null;
-        newNotification.diaSemana=null;   
-    } else
-    if (newNotification.tipoEnvio=="Recurrente"){
-      newNotification.horaEnvio= newNotification.horaEnvio + ":00"
-      newNotification.fechaHoraEnvio=null;
+
+    if (newNotification.tipoEnvio === "Extemporaneo") {
+        newNotification.horaEnvio = null;
+        newNotification.diaDelMes = null;
+        newNotification.frecuencia = null;
+        newNotification.diaSemana = null;
     }
 
-    console.log(newNotification)
-    console.log("En create")
+    if (newNotification.tipoEnvio === "Recurrente") {
+        newNotification.horaEnvio = newNotification.horaEnvio + ":00";
+        newNotification.fechaHoraEnvio = null;
+        if (newNotification.frecuencia === "Mensual") {
+            newNotification.ultimoDia = newNotification.diaDelMes == 0;
+        }
+    }
+
     const response = await fetch(`${API_URL}/api/Notificacion`, {
         method: 'POST',
         headers: {
@@ -43,30 +42,64 @@ export const createNotificationApi = async (notification: INotification): Promis
     });
 
     if (!response.ok) {
-        toast.error('Error al Registrar la notificaion');
+        toast.error('Error al registrar la notificación');
+        throw new Error(`Error en la solicitud: ${response.status}`);
     }
-    return response.json(); // Devuelve la respuesta sin adaptar
+
+    try {
+        const isJson = response.headers.get('Content-Type')?.includes('application/json');
+        
+        if (isJson) {
+            const responseData: INotification = await response.json();
+            console.log('Notificación creada exitosamente:', responseData);
+            toast.success('Notificación creada exitosamente');
+            return responseData;  // Retorna el objeto INotification si existe JSON
+        } else {
+            // Si no hay cuerpo en la respuesta, retorna un objeto vacío de tipo INotification
+            console.log('Notificación creada exitosamente (sin cuerpo en la respuesta)');
+            toast.success('Notificación creada exitosamente');
+            return {} as INotification;  // Retorna un objeto vacío de tipo INotification
+        }
+    } catch (error) {
+        console.error('Error al procesar la respuesta del servidor:', error);
+        throw new Error('Error al procesar la respuesta del servidor');
+    }
 };
+
 
 
 export const updateNotificationApi = async (notification: INotification): Promise<INotification| null> => {
     if (!notification|| !notification.id) {
         throw new Error('Rate or rate.id is missing');
     }
+ 
     const { vigencia, ...newNotification } = notification;
   
-    
-      if (newNotification.tipoEnvio="Extemporaneo") {
-          newNotification.horaEnvio= null;
-          newNotification.diaDelMes=null;
-          newNotification.frecuencia=null;
-          newNotification.diaSemana=null;   
-      } else
-      if (newNotification.tipoEnvio=="Recurrente"){
-        newNotification.horaEnvio= newNotification.horaEnvio + ":00"
+    if (newNotification.tipoEnvio==="Extemporaneo") {
+        console.log("extemporaneeo")
+        newNotification.horaEnvio= null;
+        newNotification.diaDelMes=null;
+        newNotification.frecuencia=null;
+        newNotification.diaSemana=null;   
+    } 
+    if (newNotification.tipoEnvio==="Recurrente"){
+        console.log("recurrente")
+        console.log(newNotification)
+        if (newNotification.horaEnvio?.length!==8){
+           newNotification.horaEnvio= newNotification.horaEnvio + ":00"
+        }
+        
         newNotification.fechaHoraEnvio=null;
-      }
-      console.log(newNotification)
+        if (newNotification.frecuencia==="Mensual")
+            {
+                if (newNotification.diaDelMes==0) {
+                    newNotification.ultimoDia = true; // Asignamos true si está marcado
+                } else {
+                    newNotification.ultimoDia = false; // Si no está marcado, lo dejamos como false
+                }
+
+            }
+    }
 
     const response = await fetch(`${API_URL}/api/Notificacion/${notification.id}`, {
         method: 'PUT',
@@ -104,5 +137,3 @@ export const deleteNotificationApi = async (id: string): Promise<void> => {
     // Si la eliminación es exitosa, simplemente no necesitamos devolver nada
     return;
 };
-
-

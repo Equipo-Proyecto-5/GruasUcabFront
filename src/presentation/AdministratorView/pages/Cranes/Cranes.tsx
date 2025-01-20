@@ -34,6 +34,7 @@ function Cranes() {
 
    const role = getUserRole();
     const basePath = getBasePath(role);
+    console.log(basePath);
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto mt-10">

@@ -52,6 +52,7 @@ export const routesConfig = {
     { path: "formdriver/editar/:id", element: <FormDriver />},
     { path: "notifications", element: <Notifications /> },
     { path: "formnotifications", element: <FormNotifications /> },
+    { path: "formnotifications/editar/:id", element: <FormNotifications /> },
     { path: "actionorder/:id", element: <ActionOrder /> },
     { path: "changepassword", element: <ChangePassword /> },
 

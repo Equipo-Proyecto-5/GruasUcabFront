@@ -190,7 +190,7 @@ const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                 value={formData.idEmpresaProveedor}
                 onChange={handleChange}
                 className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                placeholder="Gruas de Confianza"
+                placeholder="Colocar N de Proveedor"
                 required
               />
             </div>

@@ -150,20 +150,25 @@ const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
             }
             setTimeout(() => navigate(-1), 2000); // Redirige a la página anterior
         } else {
-            // Crear un nuevo proveedor
-            const createdNotification = await createNotificationApi(fullFormData);
-            if (createdNotification) {
-                const adaptedNotification = adaptNotificationData(createdNotification);
-                setNotifications((prevNotifications) => [...prevNotifications, adaptedNotification]);
-                toast.success("Notificacion creada exitosamente.");
-                resetForm();
+                // Crear una nueva notificación
+                const createdNotification = await createNotificationApi(fullFormData);
+                if (createdNotification) {
+                    const adaptedNotification = adaptNotificationData(createdNotification);
+                    setNotifications((prevNotifications) => [...prevNotifications, adaptedNotification]);
+                    toast.success("Notificación creada exitosamente.");
+                    resetForm();
+                } else {
+                    toast.error("No se recibió respuesta del servidor.");
+                }
             }
+        } catch (error: any) {
+            console.error("Error en la creación/actualización:", error.message);
+            toast.error(
+                error.message || "Error al procesar la solicitud. Por favor, inténtalo nuevamente."
+            );
+        } finally {
+            setLoading(false);
         }
-    } catch {
-        toast.error("Error al procesar la solicitud");
-    } finally {
-        setLoading(false);
-    }
 };
 // Función para manejar la eliminación de un proveedor
 const handleDeleteNotification = async (id: string) => {

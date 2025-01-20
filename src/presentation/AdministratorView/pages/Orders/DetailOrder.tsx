@@ -91,7 +91,7 @@ function DetailOrder({ order }: IProps) {
                 </div>
                 <div className="text-sm font-semibold mb-4 text-black">
                     <h3 className="text-md font-medium text-gray-600 dark:text-gray-300">Costo Total Servicios Adicionales</h3>
-                    <h2 className="text-lg font-bold text-gray-800 dark:text-white">{order.costosServiciosAdicionales}</h2>
+                    <h2 className="text-lg font-bold text-gray-800 dark:text-white">{order.costoServiciosAdicionales}</h2>
                 </div>
             </div>
         </div>
