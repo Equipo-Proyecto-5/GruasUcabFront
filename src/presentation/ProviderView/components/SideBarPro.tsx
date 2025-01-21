@@ -54,7 +54,7 @@ function SideBarOp() {
 
         <ul className="space-y-2 flex-1 overflow-y-auto">
 
-          <Link to="cranes/:providerId" className="flex items-center w-full hover:bg-gray-700">
+          <Link  to={`cranes/${user?.idProveedor}`} className="flex items-center w-full hover:bg-gray-700">
             <li className="flex items-center p-4 hover:bg-gray-700">
               <FaClipboardList className="mr-3" />
               {isOpen && <span>Gestión de Gruas</span>}

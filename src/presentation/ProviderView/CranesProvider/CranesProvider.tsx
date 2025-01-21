@@ -11,7 +11,6 @@ function Cranes() {
   const { filteredCranes, loading, error, handleDeleteCranes } = useCranes(); // Usa el hook para obtener las grúas
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCranesId, setSelectedCranesId] = useState<string | null>(null);
-
   
 
   const openModal = (id: string) => {
