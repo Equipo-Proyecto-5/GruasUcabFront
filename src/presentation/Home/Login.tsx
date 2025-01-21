@@ -51,8 +51,11 @@ const LoginPage = () => {
      const userAuth={
       id:aditionalResponseData.id,
       email:responseData.username,
-      role:responseData.role
+      role:responseData.role,
+      idProveedor:aditionalResponseData.idGrua,
      }
+     console.log(aditionalResponseData);
+     console.log(userAuth);
       login(userAuth);
       // Redirige al usuario según el rol
       if (responseData.role === "Administrador") {

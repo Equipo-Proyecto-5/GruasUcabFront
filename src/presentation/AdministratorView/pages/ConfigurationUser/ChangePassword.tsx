@@ -13,6 +13,7 @@ const ChangePasswordPage = () => {
     formState: { errors },
   } = useForm<ChangePasswordInputs>();
   const { user } = useAuth();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const onSubmit = async (data: ChangePasswordInputs) => {
     const { newPassword, confirmPassword } = data;
@@ -23,7 +24,7 @@ const ChangePasswordPage = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:86/api/auth/${user?.email}`, {
+      const response = await fetch(`${API_URL}/api/auth/${user?.email}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
